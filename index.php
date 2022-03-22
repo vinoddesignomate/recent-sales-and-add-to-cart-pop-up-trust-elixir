@@ -1,11 +1,9 @@
 <?php
 /*
-Plugin Name: Sat Test
-Plugin URI: https://wordpress.com
-Description: Powerful ecommerce.
-Version: 1.0
-Author: Satya
-Author URI: https://wordpress.com
+Plugin Name: Recent Sales and Add to Cart Pop Up - Trust Elixir
+Description: Notification popup for woocommerce product that will show how your products is trending.
+Version: 1.0.0
+Author: cgcolors
 */
 
 if ( ! defined( 'ABSPATH' ) ) {

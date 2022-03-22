@@ -7,15 +7,15 @@ if (isset($_POST) && $_REQUEST['page'] === 'sat-test' && isset($_REQUEST['action
 		update_option('salespopup', 'inactive', '', 'yes');
 	}
 
-	cg_update_popup_option($_POST); //function for save popup option data
+	rsaacpptelx_update_popup_option($_POST); //function for save popup option data
 
 
 
 	//echo $_POST['tab_nam'];
-	echo '<script>window.location.href="admin.php?page=' . $_GET['page'] . '&status=1#' . $_POST['tab_nam'] . '";</script>';
+	echo '<script>window.location.href="admin.php?page=' . sanitize_text_field($_GET['page']) . '&status=1#' . sanitize_text_field($_POST['tab_nam']) . '";</script>';
 	exit;
 }
-$return_values = cg_get_sales_option_values(); //get all values of sales popup option
+$return_values = rsaacpptelx_sales_option_values(); //get all values of sales popup option
 
 
 
@@ -30,7 +30,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 		<!-- <div class="cancelBTN"><a class="close" href="#"></a>
 		</div> -->
 		<div class="icon001"><img class="product_image" src="<?php echo plugin_dir_url(__FILE__) . '../assets/img/watch.jpg'; ?>" /></div>
-		<div class="popup_back text002 template_image" style="background-image: url('<?php echo plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . $return_values['popup_template'] . '.png'; ?>');">
+		<div class="popup_back text002 template_image" style="background-image: url('<?php echo plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . sanitize_text_field($return_values['popup_template']) . '.png'; ?>');">
 			<h4 class="hfcls"><?php _e($return_values['popup_one_heading']); ?></h4>
 			<h5 class="hficls"><?php _e($return_values['messagetext']); ?></h5>
 		</div>
@@ -45,7 +45,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 		<!-- <div class="cancelBTN"><a class="close" href="#"></a>
 		</div> -->
 		<div class="icon001"><img class="product_image" src="<?php echo plugin_dir_url(__FILE__) . '../assets/img/watch.jpg'; ?>" /></div>
-		<div class="popup_back text002 template_image" style="background-image: url('<?php echo plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . $return_values['popup_template'] . '.png'; ?>');">
+		<div class="popup_back text002 template_image" style="background-image: url('<?php echo plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . sanitize_text_field($return_values['popup_template']) . '.png'; ?>');">
 			<h4 class="hfcls"><?php _e($return_values['popup_two_heading']); ?></h4>
 			<h5 class="hficls"><?php _e($return_values['popup_two_msg']); ?></h5>
 		</div>
@@ -85,7 +85,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 										<label for="product"><?php _e('Active'); ?></label>
 									</div>
 									<div class="col-md-9 col-sm-8">
-										<input type="checkbox" name="popstats" <?php echo $return_values['checked']; ?>>
+										<input type="checkbox" name="popstats" <?php echo sanitize_text_field($return_values['checked']); ?>>
 									</div>
 								</div>
 							</div>
@@ -115,7 +115,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 										<label for="color_code"><?php _e('Background Color'); ?></label>
 									</div>
 									<div class="col-md-9 col-sm-8">
-										<input id="color_code" class="color-picker" name="bcolor_code" type="text" value="<?php echo $return_values['salesbcolor_code']; ?> " />
+										<input id="color_code" class="color-picker" name="bcolor_code" type="text" value="<?php echo sanitize_text_field($return_values['salesbcolor_code']); ?> " />
 									</div>
 								</div>
 							</div>
@@ -125,7 +125,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 										<label for="fcolor_code"><?php _e('Heading Font Color'); ?></label>
 									</div>
 									<div class="col-md-9 col-sm-8">
-										<input id="fcolor_code" class="headcolor color-picker" name="fcolor_code" type="text" value="<?php echo $return_values['salesfcolor_code']; ?>" />
+										<input id="fcolor_code" class="headcolor color-picker" name="fcolor_code" type="text" value="<?php echo sanitize_text_field($return_values['salesfcolor_code']); ?>" />
 									</div>
 								</div>
 							</div>
@@ -135,7 +135,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 										<label for="f_size_code"><?php _e('Heading Font Size'); ?></label>
 									</div>
 									<div class="col-md-9 col-sm-8">
-										<input id="f_size_code" class="headfontsize" name="f_size" type="text" value="<?php echo $return_values['sales_size']; ?>" />
+										<input id="f_size_code" class="headfontsize" name="f_size" type="text" value="<?php echo sanitize_text_field($return_values['sales_size']); ?>" />
 									</div>
 								</div>
 							</div>
@@ -145,7 +145,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 										<label for="cf_color_code"><?php _e('Content Font Color'); ?></label>
 									</div>
 									<div class="col-md-9 col-sm-8">
-										<input id="cf_color_code" class="cfontcolor color-picker" name="cf_color" type="text" value="<?php echo $return_values['cf_color']; ?>" />
+										<input id="cf_color_code" class="cfontcolor color-picker" name="cf_color" type="text" value="<?php echo sanitize_text_field($return_values['cf_color']); ?>" />
 									</div>
 								</div>
 							</div>
@@ -155,7 +155,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 										<label for="cf_size_code"><?php _e('Content Font Size'); ?></label>
 									</div>
 									<div class="col-md-9 col-sm-8">
-										<input id="cf_size_code" class="cfontsize" name="cf_size" type="text" value="<?php echo $return_values['cf_size']; ?>" />
+										<input id="cf_size_code" class="cfontsize" name="cf_size" type="text" value="<?php echo sanitize_text_field($return_values['cf_size']); ?>" />
 									</div>
 								</div>
 							</div>
@@ -191,9 +191,9 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 							<div class="col-sm-4">
 								<div class="form-group trueSpace">
 									<img src="<?php echo plugin_dir_url(__FILE__) . '../assets/img/background/' . $value; ?>" class="vi-ui centered medium  middle aligned ">
-									<input id="popup_one_heading_<?php echo $sr; ?>" data-img="<?php echo plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . $value; ?>" data-color="<?php echo $img_name[1]; ?>" class="cfontsize" name="popup_template" type="radio" value="<?php echo $img_name[0]; ?>" <?php if ($return_values['popup_template'] == $img_name[0]) { ?> checked <?php } ?> />
+									<input id="popup_one_heading_<?php echo $sr; ?>" data-img="<?php echo plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . $value; ?>" data-color="<?php echo sanitize_text_field($img_name[1]); ?>" class="cfontsize" name="popup_template" type="radio" value="<?php echo sanitize_text_field($img_name[0]); ?>" <?php if ($return_values['popup_template'] == $img_name[0]) { ?> checked <?php } ?> />
 									<br />
-									<?php echo $img_name[0]; ?>
+									<?php echo sanitize_text_field($img_name[0]); ?>
 								</div>
 							</div>
 						<?php
@@ -258,7 +258,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 									<label for="cls_color_code"><?php _e('Close Icon Color'); ?></label>
 								</div>
 								<div class="col-md-9 col-sm-8">
-									<input id="cls_color_code" onchange="get_func();" class="color-picker" name="icon_color_code" type="text" value="<?php echo $return_values['icon_color_code']; ?> " />
+									<input id="cls_color_code" onchange="get_func();" class="color-picker" name="icon_color_code" type="text" value="<?php echo sanitize_text_field($return_values['icon_color_code']); ?> " />
 								</div>
 							</div>
 						</div>
@@ -389,7 +389,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 									<label for="popup_custom_css"><?php _e('Custom CSS'); ?> </label>
 								</div>
 								<div class="col-md-9 col-sm-8">
-									<textarea class="customtextarea" id="popup_custom_css" name="popup_custom_css"><?php echo $return_values['popup_custom_css']; ?></textarea>
+									<textarea class="customtextarea" id="popup_custom_css" name="popup_custom_css"><?php echo sanitize_text_field($return_values['popup_custom_css']); ?></textarea>
 								</div>
 							</div>
 						</div>
@@ -405,7 +405,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 								<label for="cf_size_code"><?php _e('Popup 1 Heading'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="popup_one_heading" class="cfontsize" name="popup_one_heading" type="text" value="<?php echo $return_values['popup_one_heading']; ?>" />
+								<input id="popup_one_heading" class="cfontsize" name="popup_one_heading" type="text" value="<?php echo sanitize_text_field($return_values['popup_one_heading']); ?>" />
 							</div>
 						</div>
 					</div>
@@ -416,7 +416,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 								<label for="cf_size_code"><?php _e('Popup 2 Heading'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="popup_two_heading" class="cfontsize" name="popup_two_heading" type="text" value="<?php echo $return_values['popup_two_heading']; ?>" />
+								<input id="popup_two_heading" class="cfontsize" name="popup_two_heading" type="text" value="<?php echo sanitize_text_field($return_values['popup_two_heading']); ?>" />
 							</div>
 						</div>
 					</div>
@@ -429,7 +429,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 								<label for="c_text_code"><?php _e('Content Text'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<textarea id="c_text_code" class="ctextsize" col="8" rows="10" name="messagetext" value="<?php echo $return_values['messagetext']; ?>" /><?php echo $return_values['messagetext']; ?></textarea>
+								<textarea id="c_text_code" class="ctextsize" col="8" rows="10" name="messagetext" value="<?php echo sanitize_text_field($return_values['messagetext']); ?>" /><?php echo sanitize_text_field($return_values['messagetext']); ?></textarea>
 							</div>
 						</div>
 					</div>
@@ -454,7 +454,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 								<label for="virtual_name"><?php _e('Virtual City Names'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<textarea id="virtual_city_name" class="ctextsize" col="8" rows="10" name="virtual_city_name" /><?php echo $return_values['virtual_city_name']; ?></textarea>
+								<textarea id="virtual_city_name" class="ctextsize" col="8" rows="10" name="virtual_city_name" /><?php echo sanitize_text_field($return_values['virtual_city_name']); ?></textarea>
 							</div>
 						</div>
 					</div>
@@ -465,7 +465,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 								<label for="virtual_state_name"><?php _e('Virtual State'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<textarea id="virtual_state_name" class="ctextsize" col="8" rows="10" name="virtual_state_name" /><?php echo $return_values['virtual_state_name']; ?></textarea>
+								<textarea id="virtual_state_name" class="ctextsize" col="8" rows="10" name="virtual_state_name" /><?php echo sanitize_text_field($return_values['virtual_state_name']); ?></textarea>
 							</div>
 						</div>
 					</div>
@@ -477,7 +477,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 								<label for="virtual_country"><?php _e('Virtual Country'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="virtual_country" class="cfontsize" name="virtual_country" type="text" value="<?php echo $return_values['virtual_country']; ?>" />
+								<input id="virtual_country" class="cfontsize" name="virtual_country" type="text" value="<?php echo sanitize_text_field($return_values['virtual_country']); ?>" />
 							</div>
 						</div>
 					</div>
@@ -488,7 +488,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 								<label for="virtual_name"><?php _e('Virtual Names'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<textarea id="virtual_name" class="ctextsize" col="8" rows="10" name="virtual_name" value="<?php echo $return_values['messagetext']; ?>" /><?php echo $return_values['virtual_name']; ?></textarea>
+								<textarea id="virtual_name" class="ctextsize" col="8" rows="10" name="virtual_name" value="<?php echo sanitize_text_field($return_values['messagetext']); ?>" /><?php echo sanitize_text_field($return_values['virtual_name']); ?></textarea>
 							</div>
 						</div>
 					</div>
@@ -500,7 +500,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 								<label for="c_text_code2"><?php _e('Popup Two Content Text'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<textarea id="c_text_code2" class="ctextsize" col="8" rows="10" name="popup_two_msg" value="<?php echo $return_values['popup_two_msg']; ?>" /><?php echo $return_values['popup_two_msg']; ?></textarea>
+								<textarea id="c_text_code2" class="ctextsize" col="8" rows="10" name="popup_two_msg" value="<?php echo sanitize_text_field($return_values['popup_two_msg']); ?>"><?php echo sanitize_text_field($return_values['popup_two_msg']); ?></textarea>
 
 								<ul class="description" style="list-style: none">
 									<li>
@@ -550,7 +550,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 								<label for="custom_msg_popup"><?php _e('Custom'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="custom_msg_popup" class="cfontsize" name="custom_msg_popup" type="text" value="<?php echo $return_values['custom_msg_popup']; ?>" />
+								<input id="custom_msg_popup" class="cfontsize" name="custom_msg_popup" type="text" value="<?php echo sanitize_text_field($return_values['custom_msg_popup']); ?>" />
 							</div>
 						</div>
 					</div>
@@ -563,7 +563,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 								<label for="min_num_people"><?php _e('Min Number'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="min_num_people" class="cfontsize" name="min_num_people" type="number" min="1" value="<?php echo $return_values['min_num_people']; ?>" />
+								<input id="min_num_people" class="cfontsize" name="min_num_people" type="number" min="1" value="<?php echo sanitize_text_field($return_values['min_num_people']); ?>" />
 							</div>
 						</div>
 					</div>
@@ -574,7 +574,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 								<label for="max_num_people"><?php _e('Max Number'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="max_num_people" class="cfontsize" name="max_num_people" type="number" min="1" value="<?php echo $return_values['max_num_people']; ?>" />
+								<input id="max_num_people" class="cfontsize" name="max_num_people" type="number" min="1" value="<?php echo sanitize_text_field($return_values['max_num_people']); ?>" />
 							</div>
 						</div>
 					</div>
@@ -625,7 +625,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 											$selected = "";
 										}
 									?>
-										<option <?php echo $selected; ?> value="<?php echo get_the_id(); ?>"><?php echo get_the_title(); ?>
+										<option <?php echo sanitize_text_field($selected); ?> value="<?php echo sanitize_text_field(get_the_id()); ?>"><?php echo sanitize_text_field(get_the_title()); ?>
 										</option>
 									<?php endwhile;
 
@@ -659,7 +659,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 												$selected = "";
 											}
 										?>
-											<option <?php echo $selected; ?> value="<?php echo get_the_id(); ?>"><?php echo get_the_title(); ?>
+											<option <?php echo sanitize_text_field($selected); ?> value="<?php echo sanitize_text_field(get_the_id()); ?>"><?php echo sanitize_text_field(get_the_title()); ?>
 											</option>
 										<?php endwhile;
 
@@ -678,7 +678,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 								<div class="col-md-9 col-sm-8">
 									<div class="row">
 										<div class="col-md-9 col-sm-8">
-											<input id="order_time" class="cfontsize" name="order_time" type="number" min="1" value="<?php echo $return_values['order_time']; ?>" />
+											<input id="order_time" class="cfontsize" name="order_time" type="number" min="1" value="<?php echo sanitize_text_field($return_values['order_time']); ?>" />
 										</div>
 										<div class="col-md-3 col-sm-4">
 											<select name="product_order_time_exact">
@@ -712,7 +712,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 											}
 
 										?>
-											<option <?php echo $sts_selected; ?> value="<?php echo $key; ?>"><?php echo $value; ?></option>
+											<option <?php echo sanitize_text_field($sts_selected); ?> value="<?php echo sanitize_text_field($key); ?>"><?php echo sanitize_text_field($value); ?></option>
 										<?php } ?>
 									</select>
 								</div>
@@ -726,7 +726,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 								<label for="virtual_time"><?php _e('Virtual Time'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="virtual_time" class="cfontsize" name="virtual_time" type="number" min="1" value="<?php echo $return_values['virtual_time']; ?>" />
+								<input id="virtual_time" class="cfontsize" name="virtual_time" type="number" min="1" value="<?php echo sanitize_text_field($return_values['virtual_time']); ?>" />
 								<p class="description"><?php _e('Days'); ?> </p>
 							</div>
 						</div>
@@ -776,7 +776,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 											$selected = "";
 										}
 									?>
-										<option <?php echo $selected; ?> value="<?php echo $dis_pages->ID; ?>"><?php echo $dis_pages->post_name; ?></option>
+										<option <?php echo sanitize_text_field($selected); ?> value="<?php echo sanitize_text_field($dis_pages->ID); ?>"><?php echo sanitize_text_field($dis_pages->post_name); ?></option>
 									<?php
 									}
 									?>
@@ -794,7 +794,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 								<label for="delay_time"><?php _e('Initial delay'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="delay_time" class="cfontsize" name="delay_time" type="number" min="1" value="<?php echo $return_values['delay_time']; ?>" />
+								<input id="delay_time" class="cfontsize" name="delay_time" type="number" min="1" value="<?php echo sanitize_text_field($return_values['delay_time']); ?>" />
 								<p class="description"><?php _e('seconds'); ?> </p>
 							</div>
 						</div>
@@ -806,7 +806,7 @@ $return_values = cg_get_sales_option_values(); //get all values of sales popup o
 								<label for="delay_time"><?php _e('Display Time'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="p_hide_time" class="cfontsize" name="p_hide_time" type="number" min="1" value="<?php echo $return_values['p_hide_time']; ?>" />
+								<input id="p_hide_time" class="cfontsize" name="p_hide_time" type="number" min="1" value="<?php echo sanitize_text_field($return_values['p_hide_time']); ?>" />
 								<p class="description"><?php _e('seconds'); ?></p>
 							</div>
 						</div>

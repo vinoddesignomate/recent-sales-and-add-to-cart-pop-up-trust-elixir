@@ -1,142 +1,304 @@
 <?php
-function rsaacpptelx_wc_check()
-{
+if (!function_exists('rsaacpptelx_wc_check')) {
+    function rsaacpptelx_wc_check()
+    {
 
-    if (class_exists('woocommerce')) {
-        global $sat_wc_active;
-        $sat_wc_active = 'yes';
-    } else {
-        global  $sat_wc_active;
-        $sat_wc_active = 'no';
+        if (class_exists('woocommerce')) {
+            global $sat_wc_active;
+            $sat_wc_active = 'yes';
+        } else {
+            global  $sat_wc_active;
+            $sat_wc_active = 'no';
+        }
     }
 }
 add_action('admin_init', 'rsaacpptelx_wc_check');
 // show admin notice if WooCommerce is not activated
-function rsaacpptelx_show_admin_notice()
-{
-    global  $sat_wc_active;
-    //check condition if WooCommerce installed and active otherwise show message for install WooCommerce 
-    if ($sat_wc_active == 'no') {
+if (!function_exists('rsaacpptelx_show_admin_notice')) {
+    function rsaacpptelx_show_admin_notice()
+    {
+        global  $sat_wc_active;
+        //check condition if WooCommerce installed and active otherwise show message for install WooCommerce 
+        if ($sat_wc_active == 'no') {
 ?>
-        <div class="notice notice-error is-dismissible">
-            <p><strong>Sales POPUP Plugin requires the WooCommerce plugin to be installed and active. You can download <a href="https://wordpress.org/plugins/woocommerce/" target="_blank">WooCommerce</a> here.</strong></p>
-        </div>
-    <?php
+            <div class="notice notice-error is-dismissible">
+                <p><strong>Sales POPUP Plugin requires the WooCommerce plugin to be installed and active. You can download <a href="https://wordpress.org/plugins/woocommerce/" target="_blank">WooCommerce</a> here.</strong></p>
+            </div>
+        <?php
 
+        }
     }
 }
 add_action('admin_notices', 'rsaacpptelx_show_admin_notice');
-function rsaacpptelx_success_message()
-{
 
-    if ($_GET['page'] == 'sat-test' && $_GET['status'] == 1) { ?>
-        <div class="notice notice-success is-dismissible">
-            <p><?php _e('Updated Successfully!'); ?></p>
-        </div>
+if (!function_exists('rsaacpptelx_success_message')) {
+    function rsaacpptelx_success_message()
+    {
+
+        if ($_GET['page'] == 'sat-test' && $_GET['status'] == 1) { ?>
+            <div class="notice notice-success is-dismissible">
+                <p><?php _e('Updated Successfully!'); ?></p>
+            </div>
 <?php }
+    }
 }
-function rsaacpptelx_email_invalid_error()
-{
-    $class = 'notice notice-error';
-    $message = __('Please enter a valid email address', 'sample-text-domain');
-    if ($_GET['page'] == 'sat-test' && $_GET['error'] == 1) {
-        printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
+if (!function_exists('rsaacpptelx_email_invalid_error')) {
+    function rsaacpptelx_email_invalid_error()
+    {
+        $class = 'notice notice-error';
+        $message = __('Please enter a valid email address', 'sample-text-domain');
+        if ($_GET['page'] == 'sat-test' && $_GET['error'] == 1) {
+            printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
+        }
     }
 }
 // function for show plugin name in left sidebar menu in admin
-function rsaacpptelx_add_custom_admin_menu()
-{
-    $slug = 'sat-test';
-    add_menu_page('Sales POPUP', 'Sales POPUP', 'level_10', $slug, 'view_order_form');
+if (!function_exists('rsaacpptelx_add_custom_admin_menu')) {
+    function rsaacpptelx_add_custom_admin_menu()
+    {
+        $slug = 'sat-test';
+        add_menu_page('Sales POPUP', 'Sales POPUP', 'level_10', $slug, 'rsaacpptelx_view_order_form');
+    }
 }
 add_action('admin_menu', 'rsaacpptelx_add_custom_admin_menu');
 
 /*
 @description: include js css for admin header for plugin
 */
-function cg_admin_header_script()
-{
-    $page = isset($_REQUEST['page']) ? wp_unslash(sanitize_text_field($_REQUEST['page'])) : '';
-    if ($page == 'sat-test') {
-        wp_register_style('cg_jquery-ui', plugins_url('../assets/css/jquery-ui.css', __FILE__));
-        wp_enqueue_style('cg_jquery-ui');
+if (!function_exists('rsaacpptelx_admin_header_script')) {
+    function rsaacpptelx_admin_header_script()
+    {
+        $page = isset($_REQUEST['page']) ? wp_unslash(sanitize_text_field($_REQUEST['page'])) : '';
+        if ($page == 'sat-test') {
+            wp_register_style('cg_jquery-ui', plugins_url('../assets/css/jquery-ui.css', __FILE__));
+            wp_enqueue_style('cg_jquery-ui');
 
-         wp_enqueue_script( 'jquery' );
-         wp_enqueue_script( 'jquery-ui-core' );
+            wp_enqueue_script('jquery');
+            wp_enqueue_script('jquery-ui-core');
 
 
-        wp_register_script( 'cg_customjsfile', plugins_url( '../assets/js/cg_admin_custom.js', __FILE__ ), array( 'jquery-ui-tabs' ) );
+            wp_register_script('cg_customjsfile', plugins_url('../assets/js/cg_admin_custom.js', __FILE__), array('jquery-ui-tabs'));
 
-        wp_enqueue_script( 'cg_customjsfile' );
+            wp_enqueue_script('cg_customjsfile');
 
-        wp_enqueue_style('wp-color-picker');
-        wp_enqueue_script('iris', admin_url('js/iris.min.js'), array('jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch'), false, 1);
+            wp_enqueue_style('wp-color-picker');
+            wp_enqueue_script('iris', admin_url('js/iris.min.js'), array('jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch'), false, 1);
 
+            wp_register_style('custom_sat_test', plugins_url('../assets/css/custom_sat_test.css', __FILE__));
+            wp_enqueue_style('custom_sat_test');
+
+            wp_register_style('cg_sales_notification_super', plugins_url('../assets/css/cg_sales_notification_admin.css', __FILE__));
+            wp_enqueue_style('cg_sales_notification_super');
+
+
+
+            wp_enqueue_script('momentjs.12', plugins_url('../assets/js/moment.min.js', __FILE__));
+            wp_enqueue_script('momentjs.12');
+
+            wp_enqueue_script('datetimepicker.12', plugins_url('../assets/js/daterangepicker.min.js', __FILE__));
+            wp_enqueue_script('datetimepicker.12');
+
+            wp_enqueue_style('datetimepicker.12', plugins_url('../assets/css/daterangepicker.css', __FILE__));
+            wp_enqueue_style('datetimepicker.12');
+
+            wp_enqueue_script('reportdatetimepicker', plugins_url('../assets/js/jquery.datetimepicker.full.min.js', __FILE__));
+            wp_enqueue_script('reportdatetimepicker');
+
+            wp_enqueue_style('reportdatetimepickercss', plugins_url('../assets/css/jquery.datetimepicker.min.css', __FILE__));
+            wp_enqueue_style('reportdatetimepickercss');
+
+            $salesfcolor_code = "#333";
+            if (get_option('salesfcolor_code') != null) {
+                $salesfcolor_code = get_option('salesfcolor_code');
+            }
+
+
+            $sales_size = "20px";
+            if (get_option('salesf_size') != null) {
+                $sales_size = get_option('salesf_size');
+            }
+
+            $sales_pos = "br";
+            if (get_option('sales_pos') != null) {
+                $sales_pos = get_option('sales_pos');
+            }
+
+            $cf_color = "#222";
+            if (get_option('cf_color') != null) {
+                $cf_color = get_option('cf_color');
+            }
+
+            $cf_size = "11px";
+            if (get_option('cf_size') != null) {
+                $cf_size = get_option('cf_size');
+            }
+
+            $popup_template = "";
+            if (get_option('popup_template') != null) {
+                $popup_template = get_option('popup_template');
+            }
+
+            $salesbcolor_shadow = "0 0 5px #ccc";
+            if ($popup_template != "") {
+                $salesbcolor_code = "none";
+                $salesbcolor_shadow = "none";
+            }
+
+            $icon_color_code = "#000000";
+            if (get_option('icon_color_code') != null) {
+                $icon_color_code = get_option('icon_color_code');
+            }
+
+            $rounded_corner = "off";
+            if (get_option('rounded_corner') != null) {
+                $rounded_corner = get_option('rounded_corner');
+            }
+            $popup_custom_css = "";
+            if (get_option('popup_custom_css') != null) {
+                $popup_custom_css = get_option('popup_custom_css');
+            }
+
+
+            if ($sales_pos === 'tl') {
+                $custom_css = ".popupMain{
+                top: 20px;
+                bottom: auto;
+                right: auto;
+                left: 20px;
+                margin-left: 0;
+                margin-top: 0;
+                width: 392px;
+                height: 100px;
+                position: fixed;
+                z-index: 9999999999999;
+                border-radius: 4px;
+                box-shadow:" . $salesbcolor_shadow . ";
+                background:" . $salesbcolor_code . ";}";
+            } else if ($sales_pos === 'br') {
+                $custom_css = ".popupMain{
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                left: auto;
+                margin-left: 0;
+                margin-top: 0;
+                width: 392px;
+                height: 100px;
+                position: fixed;
+                z-index: 9999999999999;
+                border-radius: 4px;
+                box-shadow:" . $salesbcolor_shadow . ";
+                background:" . $salesbcolor_code . ";}";
+            } else if ($sales_pos === 'tr') {
+                $custom_css = ".popupMain{
+                top: 20px;
+                bottom: auto;
+                right: 20px;
+                left: auto;
+                margin-left: 0;
+                margin-top: 0;
+                width: 392px;
+                height: 100px;
+                position: fixed;
+                z-index: 9999999999999;
+                border-radius: 4px;
+                box-shadow:" . $salesbcolor_shadow . ";
+                background:" . $salesbcolor_code . ";}";
+            } else if ($sales_pos === 'bl') {
+                $custom_css = ".popupMain{
+                top: auto;
+                bottom: 20px;
+                right: auto;
+                left: 20px;
+                margin-left: 0;
+                margin-top: 0;
+                width: 392px;
+                height: 100px;
+                position: fixed;
+                z-index: 9999999999999;
+                border-radius: 4px;
+                box-shadow:" . $salesbcolor_shadow . ";
+                background:" . $salesbcolor_code . ";}";
+            }
+
+
+            $custom_css .= " 
+                        .text002 h5{font-size:" . $cf_size . ";color:" . $cf_color . ";}
+                        .text002 h4{font-size:" . $sales_size . ";color:" . $salesfcolor_code . ";}
+                        .popupMain .cancelBTN{color:" . $icon_color_code . ";}";
+
+            if ($rounded_corner === 'on') {
+
+                $custom_css .= " 
+            .product_image {
+                border-radius: 14px 0px 0px 14px;
+            }    
+            .template_image {
+                border-radius: 0px 14px 14px 0px;
+            }";
+            }
+            $custom_css .= $popup_custom_css;
+
+
+
+            wp_add_inline_style('cg_sales_notification_super', $custom_css);
+        }
+    }
+}
+add_action('admin_enqueue_scripts', 'rsaacpptelx_admin_header_script');
+if (!function_exists('rsaacpptelx_frontend_script')) {
+    function rsaacpptelx_frontend_script()
+    {
         wp_register_style('custom_sat_test', plugins_url('../assets/css/custom_sat_test.css', __FILE__));
         wp_enqueue_style('custom_sat_test');
+        wp_enqueue_script('cg_customjsfront', plugins_url('../assets/js/cg_frontend_custom.js', __FILE__));
+        wp_enqueue_script('cg_customjsfront');
 
-        wp_register_style('cg_sales_notification_super', plugins_url('../assets/css/cg_sales_notification_admin.css', __FILE__));
-        wp_enqueue_style('cg_sales_notification_super');
+        wp_register_style('cg_sales_notification', plugins_url('../assets/css/cg_sales_notification.css', __FILE__));
+        wp_enqueue_style('cg_sales_notification');
 
-        
-
-        wp_enqueue_script('momentjs.12', plugins_url('../assets/js/moment.min.js', __FILE__));
-        wp_enqueue_script('momentjs.12');
-
-        wp_enqueue_script('datetimepicker.12', plugins_url('../assets/js/daterangepicker.min.js', __FILE__));
-        wp_enqueue_script('datetimepicker.12');
-
-        wp_enqueue_style('datetimepicker.12', plugins_url('../assets/css/daterangepicker.css', __FILE__));
-        wp_enqueue_style('datetimepicker.12');
-
-        wp_enqueue_script('reportdatetimepicker', plugins_url('../assets/js/jquery.datetimepicker.full.min.js', __FILE__));
-        wp_enqueue_script('reportdatetimepicker');
-
-        wp_enqueue_style('reportdatetimepickercss', plugins_url('../assets/css/jquery.datetimepicker.min.css', __FILE__));
-        wp_enqueue_style('reportdatetimepickercss');
-    
         $salesfcolor_code = "#333";
         if (get_option('salesfcolor_code') != null) {
             $salesfcolor_code = get_option('salesfcolor_code');
         }
-    
-    
+
+
         $sales_size = "20px";
         if (get_option('salesf_size') != null) {
             $sales_size = get_option('salesf_size');
         }
-    
+
         $sales_pos = "br";
         if (get_option('sales_pos') != null) {
             $sales_pos = get_option('sales_pos');
         }
-    
+
         $cf_color = "#222";
         if (get_option('cf_color') != null) {
             $cf_color = get_option('cf_color');
         }
-    
+
         $cf_size = "11px";
         if (get_option('cf_size') != null) {
             $cf_size = get_option('cf_size');
         }
-    
+
         $popup_template = "";
         if (get_option('popup_template') != null) {
             $popup_template = get_option('popup_template');
         }
-    
+
         $salesbcolor_shadow = "0 0 5px #ccc";
         if ($popup_template != "") {
             $salesbcolor_code = "none";
             $salesbcolor_shadow = "none";
         }
-    
+
         $icon_color_code = "#000000";
         if (get_option('icon_color_code') != null) {
             $icon_color_code = get_option('icon_color_code');
         }
-    
+
         $rounded_corner = "off";
         if (get_option('rounded_corner') != null) {
             $rounded_corner = get_option('rounded_corner');
@@ -145,179 +307,27 @@ function cg_admin_header_script()
         if (get_option('popup_custom_css') != null) {
             $popup_custom_css = get_option('popup_custom_css');
         }
-    
-    
+
+
         if ($sales_pos === 'tl') {
             $custom_css = ".popupMain{
-                top: 20px;
-                bottom: auto;
-                right: auto;
-                left: 20px;
-                margin-left: 0;
-                margin-top: 0;
-                width: 392px;
-                height: 100px;
-                position: fixed;
-                z-index: 9999999999999;
-                border-radius: 4px;
-                box-shadow:" . $salesbcolor_shadow . ";
-                background:" . $salesbcolor_code . ";}";
+            visibility: none;
+            opacity: 0;
+            top: 20px;
+            bottom: auto;
+            right: auto;
+            left: 20px;
+            margin-left: 0;
+            margin-top: 0;
+            width: 392px;
+            height: 88px;
+            position: fixed;
+            z-index: 9999999999999;
+            border-radius: 4px;
+            box-shadow:" . $salesbcolor_shadow . ";
+            background:" . $salesbcolor_code . ";}";
         } else if ($sales_pos === 'br') {
             $custom_css = ".popupMain{
-                top: auto;
-                bottom: 20px;
-                right: 20px;
-                left: auto;
-                margin-left: 0;
-                margin-top: 0;
-                width: 392px;
-                height: 100px;
-                position: fixed;
-                z-index: 9999999999999;
-                border-radius: 4px;
-                box-shadow:" . $salesbcolor_shadow . ";
-                background:" . $salesbcolor_code . ";}";
-        }
-        else if ($sales_pos === 'tr') {
-            $custom_css = ".popupMain{
-                top: 20px;
-                bottom: auto;
-                right: 20px;
-                left: auto;
-                margin-left: 0;
-                margin-top: 0;
-                width: 392px;
-                height: 100px;
-                position: fixed;
-                z-index: 9999999999999;
-                border-radius: 4px;
-                box-shadow:" . $salesbcolor_shadow . ";
-                background:" . $salesbcolor_code . ";}";
-        }
-        else if ($sales_pos === 'bl') {
-            $custom_css = ".popupMain{
-                top: auto;
-                bottom: 20px;
-                right: auto;
-                left: 20px;
-                margin-left: 0;
-                margin-top: 0;
-                width: 392px;
-                height: 100px;
-                position: fixed;
-                z-index: 9999999999999;
-                border-radius: 4px;
-                box-shadow:" . $salesbcolor_shadow . ";
-                background:" . $salesbcolor_code . ";}";
-        }
-    
-        
-        $custom_css.= " 
-                        .text002 h5{font-size:".$cf_size.";color:".$cf_color.";}
-                        .text002 h4{font-size:".$sales_size.";color:".$salesfcolor_code.";}
-                        .popupMain .cancelBTN{color:".$icon_color_code.";}";
-    
-        if ($rounded_corner === 'on') {      
-            
-            $custom_css.= " 
-            .product_image {
-                border-radius: 14px 0px 0px 14px;
-            }    
-            .template_image {
-                border-radius: 0px 14px 14px 0px;
-            }";
-    
-        }
-        $custom_css.= $popup_custom_css;
-    
-        
-    
-        wp_add_inline_style('cg_sales_notification_super', $custom_css);
-    }
-}
-add_action('admin_enqueue_scripts', 'cg_admin_header_script');
-
-function cg_frontend_script()
-{
-    wp_register_style('custom_sat_test', plugins_url('../assets/css/custom_sat_test.css', __FILE__));
-    wp_enqueue_style('custom_sat_test');
-    wp_enqueue_script('cg_customjsfront', plugins_url('../assets/js/cg_frontend_custom.js', __FILE__));
-    wp_enqueue_script('cg_customjsfront');
-
-    wp_register_style('cg_sales_notification', plugins_url('../assets/css/cg_sales_notification.css', __FILE__));
-    wp_enqueue_style('cg_sales_notification');
-
-    $salesfcolor_code = "#333";
-    if (get_option('salesfcolor_code') != null) {
-        $salesfcolor_code = get_option('salesfcolor_code');
-    }
-
-
-    $sales_size = "20px";
-    if (get_option('salesf_size') != null) {
-        $sales_size = get_option('salesf_size');
-    }
-
-    $sales_pos = "br";
-    if (get_option('sales_pos') != null) {
-        $sales_pos = get_option('sales_pos');
-    }
-
-    $cf_color = "#222";
-    if (get_option('cf_color') != null) {
-        $cf_color = get_option('cf_color');
-    }
-
-    $cf_size = "11px";
-    if (get_option('cf_size') != null) {
-        $cf_size = get_option('cf_size');
-    }
-
-    $popup_template = "";
-    if (get_option('popup_template') != null) {
-        $popup_template = get_option('popup_template');
-    }
-
-    $salesbcolor_shadow = "0 0 5px #ccc";
-    if ($popup_template != "") {
-        $salesbcolor_code = "none";
-        $salesbcolor_shadow = "none";
-    }
-
-    $icon_color_code = "#000000";
-    if (get_option('icon_color_code') != null) {
-        $icon_color_code = get_option('icon_color_code');
-    }
-
-    $rounded_corner = "off";
-    if (get_option('rounded_corner') != null) {
-        $rounded_corner = get_option('rounded_corner');
-    }
-    $popup_custom_css = "";
-    if (get_option('popup_custom_css') != null) {
-        $popup_custom_css = get_option('popup_custom_css');
-    }
-
-
-    if ($sales_pos === 'tl') {
-        $custom_css = ".popupMain{
-            visibility: none;
-            opacity: 0;
-            top: 20px;
-            bottom: auto;
-            right: auto;
-            left: 20px;
-            margin-left: 0;
-            margin-top: 0;
-            width: 392px;
-            height: 88px;
-            position: fixed;
-            z-index: 9999999999999;
-            border-radius: 4px;
-            box-shadow:" . $salesbcolor_shadow . ";
-            background:" . $salesbcolor_code . ";}";
-    } else if ($sales_pos === 'br') {
-        $custom_css = ".popupMain{
             visibility: none;
             opacity: 0;
             top: auto;
@@ -333,9 +343,8 @@ function cg_frontend_script()
             border-radius: 4px;
             box-shadow:" . $salesbcolor_shadow . ";
             background:" . $salesbcolor_code . ";}";
-    }
-    else if ($sales_pos === 'tr') {
-        $custom_css = ".popupMain{
+        } else if ($sales_pos === 'tr') {
+            $custom_css = ".popupMain{
             visibility: none;
             opacity: 0;
             top: 20px;
@@ -351,9 +360,8 @@ function cg_frontend_script()
             border-radius: 4px;
             box-shadow:" . $salesbcolor_shadow . ";
             background:" . $salesbcolor_code . ";}";
-    }
-    else if ($sales_pos === 'bl') {
-        $custom_css = ".popupMain{
+        } else if ($sales_pos === 'bl') {
+            $custom_css = ".popupMain{
             visibility: none;
             opacity: 0;
             top: auto;
@@ -369,43 +377,45 @@ function cg_frontend_script()
             border-radius: 4px;
             box-shadow:" . $salesbcolor_shadow . ";
             background:" . $salesbcolor_code . ";}";
-    }
+        }
 
-    
-    $custom_css.= " 
-                    .text002 h5{font-size:".$cf_size.";color:".$cf_color.";}
-                    .text002 h4{font-size:".$sales_size.";color:".$salesfcolor_code.";}
-                    .popupMain .cancelBTN{color:".$icon_color_code.";}";
 
-    if ($rounded_corner === 'on') {      
-        
-        $custom_css.= " 
+        $custom_css .= " 
+                    .text002 h5{font-size:" . $cf_size . ";color:" . $cf_color . ";}
+                    .text002 h4{font-size:" . $sales_size . ";color:" . $salesfcolor_code . ";}
+                    .popupMain .cancelBTN{color:" . $icon_color_code . ";}";
+
+        if ($rounded_corner === 'on') {
+
+            $custom_css .= " 
         .product_image {
             border-radius: 14px 0px 0px 14px;
         }    
         .template_image {
             border-radius: 0px 14px 14px 0px;
         }";
+        }
+        $custom_css .= $popup_custom_css;
 
+
+
+        wp_add_inline_style('cg_sales_notification', $custom_css);
     }
-    $custom_css.= $popup_custom_css;
-
-    
-
-    wp_add_inline_style('cg_sales_notification', $custom_css);
 }
 
-add_action('wp_enqueue_scripts', 'cg_frontend_script');
+add_action('wp_enqueue_scripts', 'rsaacpptelx_frontend_script');
 
 //function for show popup notification in front end
-function view_order_form()
-{
-    if (!current_user_can('manage_options')) {
-        return false;
-    }
-    $page = isset($_REQUEST['page']) ? wp_unslash(sanitize_text_field($_REQUEST['page'])) : '';
-    if ($page == 'sat-test') {
-        include(sprintf("%s/templates/view.php", rsaacpptelx_plugin_dir));
+if (!function_exists('rsaacpptelx_view_order_form')) {
+    function rsaacpptelx_view_order_form()
+    {
+        if (!current_user_can('manage_options')) {
+            return false;
+        }
+        $page = isset($_REQUEST['page']) ? wp_unslash(sanitize_text_field($_REQUEST['page'])) : '';
+        if ($page == 'sat-test') {
+            include(sprintf("%s/templates/view.php", rsaacpptelx_plugin_dir));
+        }
     }
 }
 
@@ -514,7 +524,7 @@ function cg_create_reportdb()
 function cg_track_popup_product_click($popup_name, $product_id)
 {
     global $wpdb; //define db global variable 
-    $user_ip = getenv('REMOTE_ADDR'); //get user ip
+    $user_ip = sanitize_text_field(getenv('REMOTE_ADDR')); //get user ip
     //tables name
     $table_name = $wpdb->prefix . 'cg_sales_report_popup_count';
     $table_name2 = $wpdb->prefix . 'cg_sales_report_popup_product_count';
@@ -553,45 +563,16 @@ function cg_get_track_popup_view()
     $results = $wpdb->get_results("SELECT popup_name,count(popup_name) as popup_count FROM {$wpdb->prefix}cg_sales_report_popup_count GROUP BY popup_name");
     return $results;
 }
-function cg_get_most_view_popup_product($start_date,$end_date)
+function cg_get_most_view_popup_product($start_date, $end_date)
 {
     global $wpdb;
     $wherecondition = "";
-    // if ($filter != "") {
-
-
-    //     switch ($filter) {
-    //         case 'all':
-    //             $wherecondition = "";
-    //             break;
-    //         case 'today':
-    //             $wherecondition = " WHERE movement='" . $wpdb->esc_like(date('Y-m-d')) . "'";
-    //             break;
-    //         case 'weekly':
-    //             $previoud_week = date("Y-m-d", strtotime("-1 week"));
-    //             $today_date = date('Y-m-d');
-    //             $wherecondition = " WHERE movement >='" . $wpdb->esc_like($previoud_week) . "' AND movement <='" . $wpdb->esc_like($today_date) . "'";
-    //             break;
-    //         case 'monthly':
-    //             $previoud_month = date("Y-m-d", strtotime("-1 month"));
-    //             $today_date = date('Y-m-d');
-    //             $wherecondition = " WHERE movement >='" . $wpdb->esc_like($previoud_month) . "' AND movement <='" . $wpdb->esc_like($today_date) . "'";
-    //             break;
-    //         case 'custom':
-    //             $wherecondition = " WHERE movement >='" . $wpdb->esc_like($from_date) . "' AND movement <='" . $wpdb->esc_like($todate) . "'";
-    //             break;
-    //         default:
-    //             $wherecondition = '';
-    //     }
-    // }
-
     $wherecondition = " WHERE movement >='" . $wpdb->esc_like($start_date) . "' AND movement <='" . $wpdb->esc_like($end_date) . "'";
 
-    // echo "SELECT product_id,popup_name,count(popup_name) as popup_count FROM {$wpdb->prefix}cg_sales_report_popup_product_count " . $wherecondition . " GROUP BY popup_name,product_id";
 
     $get_popup_results = $wpdb->get_results("SELECT product_id,popup_name,count(popup_name) as popup_count FROM {$wpdb->prefix}cg_sales_report_popup_product_count " . $wherecondition . " GROUP BY popup_name,product_id");
-    
-   // print_r($get_popup_results);
+
+    // print_r($get_popup_results);
 
     $returnArray = array();
     foreach ($get_popup_results as $get_project) {
@@ -640,7 +621,7 @@ function cg_update_product_view($productid)
 function cg_product_view_counter($product_id)
 {
 
-    $userip = $_SERVER['REMOTE_ADDR'];
+    $userip = sanitize_text_field($_SERVER['REMOTE_ADDR']);
     $meta = get_post_meta($product_id, '_total_views_count', TRUE);
     $meta = (!$meta) ? array() : explode(',', $meta);
     $meta = array_filter(array_unique($meta));
@@ -767,11 +748,10 @@ function cg_get_mostviwed_product()
     $mostvieproductwarray = array();
     while ($loop->have_posts()) : $loop->the_post();
         global $product;
-        // echo get_the_id().'**************';
 
         $mostview = cg_show_product_view_counter_on_product_page(get_the_id());
         if ($mostview > 0) {
-            $mostvieproductwarray[] = get_the_id();
+            $mostvieproductwarray[] = sanitize_text_field(get_the_id());
         }
 
     endwhile;
@@ -816,12 +796,12 @@ function cg_get_back_images()
 *@Param: null
 *@return : location array
 */
-function cg_get_location_detais()
+function rsaacpptelx_get_location_detais()
 {
     $user_ip = getenv('REMOTE_ADDR');
-    $getresposne = wp_remote_get("https://freegeoip.app/json/".$user_ip."");
+    $getresposne = wp_remote_get("https://freegeoip.app/json/" . $user_ip . "");
     $details = json_decode($getresposne['body']);
-    
+
     return $details;
 }
 /*
@@ -829,7 +809,7 @@ function cg_get_location_detais()
 *@Param: post data
 *@retun: null
 */
-function cg_update_popup_option($post_data)
+function rsaacpptelx_update_popup_option($post_data)
 {
 
 
@@ -921,7 +901,7 @@ function cg_update_popup_option($post_data)
 *@Param: null
 *@retun: values array
 */
-function cg_get_sales_option_values()
+function rsaacpptelx_sales_option_values()
 {
     $respose_array = array();
 

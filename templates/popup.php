@@ -1,10 +1,10 @@
 <?php
-$details = cg_get_location_detais(); //call function to get user location
+$details = rsaacpptelx_get_location_detais(); //call function to get user location
 $country = (isset($details->country_name) ? $details->country_name : ''); //user country 
 $state = (isset($details->region_code) ? $details->region_code : ''); //user country 
 $city = (isset($details->city) ? $details->city : ''); //user city
 
-$return_values = cg_get_sales_option_values(); //get all values of sales popup option
+$return_values = rsaacpptelx_sales_option_values(); //get all values of sales popup option
 
 
 if ($country === "") {
@@ -190,15 +190,15 @@ if ($return_values['pro_link_target'] === 'new_tab') {
 
 		<div class="icon001">
 			<?php if ($return_values['image_redirect'] === 'on') { ?>
-				<a <?php echo $open_link; ?> href="<?php echo get_permalink($product_id); ?>">
-					<img class="product_image" src="<?php echo $image; ?>" />
+				<a <?php echo sanitize_text_field($open_link); ?> href="<?php echo sanitize_text_field(get_permalink($product_id)); ?>">
+					<img class="product_image" src="<?php echo sanitize_text_field($image); ?>" />
 				</a>
 			<?php } else { ?>
-				<img class="product_image" src="<?php echo $image; ?>" />
+				<img class="product_image" src="<?php echo sanitize_text_field($image); ?>" />
 			<?php } ?>
 		</div>
-		<div class="text002 template_image" style="background-image: url('<?php echo plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . $return_values['popup_template'] . '.png'; ?>');">
-			<a <?php echo $open_link; ?> href="<?php echo get_permalink($product_id); ?>">
+		<div class="text002 template_image" style="background-image: url('<?php echo plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . sanitize_text_field($return_values['popup_template']) . '.png'; ?>');">
+			<a <?php echo sanitize_text_field($open_link); ?> href="<?php echo sanitize_text_field(get_permalink($product_id)); ?>">
 				<h4><?php _e($return_values['popup_one_heading']); ?></h4>
 				<h5><?php _e($messagetext); ?></h5>
 			</a>
@@ -217,15 +217,15 @@ if ($return_values['pro_link_target'] === 'new_tab') {
 
 		<div class="icon001">
 			<?php if ($return_values['image_redirect'] === 'on') { ?>
-				<a <?php echo $open_link; ?> href="<?php echo get_permalink($product_id); ?>">
-					<img class="product_image" src="<?php echo $image; ?>" />
+				<a <?php echo sanitize_text_field($open_link); ?> href="<?php echo sanitize_text_field(get_permalink($product_id)); ?>">
+					<img class="product_image" src="<?php echo sanitize_text_field($image); ?>" />
 				</a>
 			<?php } else { ?>
-				<img class="product_image" src="<?php echo $image; ?>" />
+				<img class="product_image" src="<?php echo sanitize_text_field($image); ?>" />
 			<?php } ?>
 		</div>
-		<div class="text002 template_image" style="background-image: url('<?php echo plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . $return_values['popup_template'] . '.png'; ?>');">
-			<a <?php echo $open_link; ?> href="<?php echo get_permalink($product_id); ?>">
+		<div class="text002 template_image" style="background-image: url('<?php echo plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . sanitize_text_field($return_values['popup_template']) . '.png'; ?>');">
+			<a <?php echo sanitize_text_field($open_link); ?> href="<?php echo sanitize_text_field(get_permalink($product_id)); ?>">
 				<h4><?php _e($return_values['popup_two_heading']); ?></h4>
 				<h5><?php _e($popup_two_msg); ?>
 				</h5>
