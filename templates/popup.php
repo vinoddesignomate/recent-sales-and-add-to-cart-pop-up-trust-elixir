@@ -4,7 +4,7 @@ $country = (isset($details->country_name) ? $details->country_name : ''); //user
 $state = (isset($details->region_code) ? $details->region_code : ''); //user country 
 $city = (isset($details->city) ? $details->city : ''); //user city
 
-$return_values = rsaacpptelx_sales_option_values(); //get all values of sales popup option
+$return_values = rsaacpptelx_sales_option_values(); //get all values of Recent Sales and Add to Cart Pop Up - Trust Elixir option
 
 
 if ($country === "") {
@@ -64,7 +64,7 @@ if ($return_values['get_product_type'] === 'get_products') {
 } else if ($return_values['get_product_type'] === 'get_billing') {
 
 
-	$getorderid = cg_get_customer_recent_order($return_values['order_time'], $return_values['product_order_time_exact'], $return_values['exclude_condition_array'], $return_values['sts_condition_array']);
+	$getorderid = rsaacpptelx_get_customer_recent_order($return_values['order_time'], $return_values['product_order_time_exact'], $return_values['exclude_condition_array'], $return_values['sts_condition_array']);
 
 
 
@@ -87,7 +87,7 @@ if ($return_values['get_product_type'] === 'get_products') {
 
 	//$getorderid = get_customer_recent_order($return_values['order_time'], $return_values['product_order_time_exact'], $return_values['exclude_condition_array']);
 
-	$get_mostview = cg_get_mostviwed_product();
+	$get_mostview = rsaacpptelx_get_mostviwed_product();
 	//$get_mostview = get_mostviwed_product();
 
 	//print_r($get_mostview);
@@ -177,7 +177,7 @@ if ($return_values['pro_link_target'] === 'new_tab') {
 
 <?php if ($return_values['sales_popup_type_val'] === 'recent_popup') {
 
-	cg_track_popup_product_click('recent_popup', $product_id);
+	rsaacpptelx_track_popup_product_click('recent_popup', $product_id);
 
 ?>
 	<div id="popup1" class="popupMain popup_effect_class" data-sattest_display="" data-sattest_hidden="">
@@ -190,24 +190,24 @@ if ($return_values['pro_link_target'] === 'new_tab') {
 
 		<div class="icon001">
 			<?php if ($return_values['image_redirect'] === 'on') { ?>
-				<a <?php echo sanitize_text_field($open_link); ?> href="<?php echo sanitize_text_field(get_permalink($product_id)); ?>">
-					<img class="product_image" src="<?php echo sanitize_text_field($image); ?>" />
+				<a <?php echo esc_url($open_link); ?> href="<?php echo esc_url(get_permalink($product_id)); ?>">
+					<img class="product_image" src="<?php echo esc_url($image); ?>" />
 				</a>
 			<?php } else { ?>
-				<img class="product_image" src="<?php echo sanitize_text_field($image); ?>" />
+				<img class="product_image" src="<?php echo esc_url($image); ?>" />
 			<?php } ?>
 		</div>
-		<div class="text002 template_image" style="background-image: url('<?php echo plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . sanitize_text_field($return_values['popup_template']) . '.png'; ?>');">
-			<a <?php echo sanitize_text_field($open_link); ?> href="<?php echo sanitize_text_field(get_permalink($product_id)); ?>">
-				<h4><?php _e($return_values['popup_one_heading']); ?></h4>
-				<h5><?php _e($messagetext); ?></h5>
+		<div class="text002 template_image" style="background-image: url('<?php echo esc_url(plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . $return_values['popup_template'] . '.png'); ?>');">
+			<a <?php echo esc_url($open_link); ?> href="<?php echo esc_url(get_permalink($product_id)); ?>">
+				<h4><?php _e(esc_attr($return_values['popup_one_heading'])); ?></h4>
+				<h5><?php _e(esc_attr($messagetext)); ?></h5>
 			</a>
 		</div>
 
 	</div>
 
 <?php } else if ($return_values['sales_popup_type_val'] === 'random_popup') {
-	cg_track_popup_product_click('random_popup', $product_id);
+	rsaacpptelx_track_popup_product_click('random_popup', $product_id);
 ?>
 
 	<div id="popup2" class="popupMain popup_effect_class" data-sattest_display="" data-sattest_hidden="">
@@ -217,17 +217,17 @@ if ($return_values['pro_link_target'] === 'new_tab') {
 
 		<div class="icon001">
 			<?php if ($return_values['image_redirect'] === 'on') { ?>
-				<a <?php echo sanitize_text_field($open_link); ?> href="<?php echo sanitize_text_field(get_permalink($product_id)); ?>">
-					<img class="product_image" src="<?php echo sanitize_text_field($image); ?>" />
+				<a <?php echo esc_url($open_link); ?> href="<?php echo esc_url(get_permalink($product_id)); ?>">
+					<img class="product_image" src="<?php echo esc_url($image); ?>" />
 				</a>
 			<?php } else { ?>
-				<img class="product_image" src="<?php echo sanitize_text_field($image); ?>" />
+				<img class="product_image" src="<?php echo esc_url($image); ?>" />
 			<?php } ?>
 		</div>
-		<div class="text002 template_image" style="background-image: url('<?php echo plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . sanitize_text_field($return_values['popup_template']) . '.png'; ?>');">
-			<a <?php echo sanitize_text_field($open_link); ?> href="<?php echo sanitize_text_field(get_permalink($product_id)); ?>">
-				<h4><?php _e($return_values['popup_two_heading']); ?></h4>
-				<h5><?php _e($popup_two_msg); ?>
+		<div class="text002 template_image" style="background-image: url('<?php echo esc_url(plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . $return_values['popup_template'] . '.png'); ?>');">
+			<a <?php echo esc_url($open_link); ?> href="<?php echo esc_url(get_permalink($product_id)); ?>">
+				<h4><?php _e(esc_attr($return_values['popup_two_heading'])); ?></h4>
+				<h5><?php _e(esc_attr($popup_two_msg)); ?>
 				</h5>
 			</a>
 		</div>
@@ -237,9 +237,9 @@ if ($return_values['pro_link_target'] === 'new_tab') {
 
 
 <script>
-	var cg_popupshow = '<?php echo sanitize_text_field($display_popup) ?>';
-	var cg_popup_effect = '<?php echo sanitize_text_field($return_values['message_display_effect']); ?>';
-	var cg_popup_hide_effect = '<?php echo sanitize_text_field($return_values['message_hide_effect']); ?>';
-	var cg_popup_delay_time = <?php echo sanitize_text_field($return_values['delay_time']); ?>;
-	var cg_p_hide_time = <?php echo sanitize_text_field($return_values['p_hide_time']); ?>;
+	var cg_popupshow = '<?php echo esc_attr($display_popup) ?>';
+	var cg_popup_effect = '<?php echo esc_attr($return_values['message_display_effect']); ?>';
+	var cg_popup_hide_effect = '<?php echo esc_attr($return_values['message_hide_effect']); ?>';
+	var cg_popup_delay_time = <?php echo esc_attr($return_values['delay_time']); ?>;
+	var cg_p_hide_time = <?php echo esc_attr($return_values['p_hide_time']); ?>;
 </script>

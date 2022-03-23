@@ -20,8 +20,8 @@ if (isset($_GET['start']) && isset($_GET['end'])) {
 	$start_date = date('Y-m-01');
 	$end_date = date('Y-m-t');
 }
-$get_popup_product_count = cg_get_most_view_popup_product($start_date, $end_date); //get popup prduct view count
-$get_popup_count = cg_get_track_popup_view(); //get popup view count
+$get_popup_product_count = rsaacpptelx_get_most_view_popup_product($start_date, $end_date); //get popup prduct view count
+$get_popup_count = rsaacpptelx_get_track_popup_view(); //get popup view count
 ?>
 
 <style>
@@ -70,24 +70,14 @@ $get_popup_count = cg_get_track_popup_view(); //get popup view count
 					<i class="fa fa-calendar"></i>&nbsp;
 					<span></span> <i class="fa fa-caret-down"></i>
 				</div>
-				<!-- <select id="predef_filter">
-
-					
-					<option <?php if ($filterby == 'all') { ?> selected <?php } ?> value="all"><?php _e('All'); ?></option>
-					<option <?php if ($filterby == 'today') { ?> selected <?php } ?> value="today"><?php _e('Today'); ?></option>
-					<option <?php if ($filterby == 'weekly') { ?> selected <?php } ?> value="weekly"><?php _e('Weekly'); ?></option>
-					<option <?php if ($filterby == 'monthly') { ?> selected <?php } ?> value="monthly"><?php _e('Monthly'); ?></option>
-					<option <?php if ($filterby == 'custom') { ?> selected <?php } ?> value="custom"><?php _e('Custom'); ?></option>
-				</select> -->
 			</div>
 
 			<div style="display: none;" class="custom_filter col-md-4 col-sm-4">
-				<input type="text" class="datepick" autocomplete="off" placeholder="From Date" id="from_date" value="<?php echo $from_date; ?>" />
+				<input type="text" class="datepick" autocomplete="off" placeholder="From Date" id="from_date" value="<?php echo esc_attr($from_date); ?>" />
 			</div>
 			<div style="display: none;" class="custom_filter col-md-4 col-sm-4">
-				<input type="text" class="datepick" autocomplete="off" placeholder="From Date" id="to_date" value="<?php echo $todate_date; ?>" />
+				<input type="text" class="datepick" autocomplete="off" placeholder="From Date" id="to_date" value="<?php echo esc_attr($todate_date); ?>" />
 			</div>
-			<!-- <div class="col-md-4 col-sm-4"><input type="button" name="search_filter" id="search_filter" value="Search" /></div> -->
 
 
 		</div>
@@ -102,7 +92,7 @@ $get_popup_count = cg_get_track_popup_view(); //get popup view count
 			foreach ($get_popup_product_count as $key => $value) { ?>
 
 				<div class="col-md-12 col-sm-12">
-					<label for="virtual_time"><?php echo $key; ?></label>
+					<label for="virtual_time"><?php echo esc_attr($key); ?></label>
 				</div>
 				<div class="cgGreyBGWithPD">
 					<div class="row">
@@ -126,13 +116,13 @@ $get_popup_count = cg_get_track_popup_view(); //get popup view count
 								<div class="col-md-3 col-sm-4">
 
 
-									<p class="description"><?php echo $product_name; ?> </p>
+									<p class="description"><?php echo esc_attr($product_name); ?> </p>
 								</div>
 
 								<div class="col-md-9 col-sm-8">
 
 
-									<p class="description"><?php echo $all_value['product_count']; ?> </p>
+									<p class="description"><?php echo esc_attr($all_value['product_count']); ?> </p>
 								</div>
 
 						<?php
@@ -159,13 +149,13 @@ if (!empty($get_popup_product_count)) {
 			<?php foreach ($get_popup_count as $displpopu) { ?>
 
 				<div class="col-md-3 col-sm-4">
-					<label for="virtual_time"><?php echo $displpopu->popup_name; ?></label>
+					<label for="virtual_time"><?php echo esc_attr($displpopu->popup_name); ?></label>
 				</div>
 				<div class="col-md-9 col-sm-8">
 
 					<p class="description"><?php
 											if (isset($countarray[$displpopu->popup_name])) {
-												echo $countarray[$displpopu->popup_name];
+												echo esc_attr($countarray[$displpopu->popup_name]);
 											} else {
 												echo '0';
 											} ?> </p>

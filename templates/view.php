@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST) && $_REQUEST['page'] === 'sat-test' && isset($_REQUEST['action']) && $_REQUEST['action'] === 'popstatus') {
+if (isset($_POST) && $_REQUEST['page'] === 'trust-elixir' && isset($_REQUEST['action']) && $_REQUEST['action'] === 'popstatus') {
 
 	if (null !== ($_POST['popstats'])) {
 		update_option('salespopup', 'active', '', 'yes');
@@ -7,7 +7,88 @@ if (isset($_POST) && $_REQUEST['page'] === 'sat-test' && isset($_REQUEST['action
 		update_option('salespopup', 'inactive', '', 'yes');
 	}
 
-	rsaacpptelx_update_popup_option($_POST); //function for save popup option data
+	$validation_returnval = "true";
+	if (isset($_POST['f_size']) && $_POST['f_size'] != "") {
+		$validation_returnval = rsaacpptelx_special_char_validation($_POST['f_size']);
+		if ($validation_returnval == 'false') {
+			$_SESSION['f_size'] = 'No special character for Heading Font Size ';
+		}
+	}
+
+	if (isset($_POST['cf_size']) && $_POST['cf_size'] != "") {
+		$validation_returnval = rsaacpptelx_special_char_validation($_POST['cf_size']);
+		if ($validation_returnval == 'false') {
+			$_SESSION['cf_size'] = 'No special character for Content Font Size ';
+		}
+	}
+	if (isset($_POST['popup_one_heading']) && $_POST['popup_one_heading'] != "") {
+		$validation_returnval = rsaacpptelx_special_char_validation($_POST['popup_one_heading']);
+		if ($validation_returnval == 'false') {
+			$_SESSION['popup_one_heading'] = 'No special character for Popup 1 Heading ';
+		}
+	}
+
+	if (isset($_POST['popup_two_heading']) && $_POST['popup_two_heading'] != "") {
+		$validation_returnval = rsaacpptelx_special_char_validation($_POST['popup_two_heading']);
+		if ($validation_returnval == 'false') {
+			$_SESSION['popup_two_heading'] = 'No special character for Popup 2 Heading ';
+		}
+	}
+
+	if (isset($_POST['virtual_country']) && $_POST['virtual_country'] != "") {
+		$validation_returnval = rsaacpptelx_special_char_validation($_POST['virtual_country']);
+		if ($validation_returnval == 'false') {
+			$_SESSION['virtual_country'] = 'No special character for Virtual Country ';
+		}
+	}
+
+	if (isset($_POST['min_num_people']) && $_POST['min_num_people'] != "") {
+		$validation_returnval = rsaacpptelx_number_val_validation($_POST['min_num_people']);
+		if ($validation_returnval == 'false') {
+			$_SESSION['min_num_people'] = 'Only Numbers allowed in  Min Number ';
+		}
+	}
+
+	if (isset($_POST['max_num_people']) && $_POST['max_num_people'] != "") {
+		$validation_returnval = rsaacpptelx_number_val_validation($_POST['max_num_people']);
+		if ($validation_returnval == 'false') {
+			$_SESSION['max_num_people'] = 'Only Numbers allowed in  Max Number ';
+		}
+	}
+
+	if (isset($_POST['order_time']) && $_POST['order_time'] != "") {
+		$validation_returnval = rsaacpptelx_number_val_validation($_POST['order_time']);
+		if ($validation_returnval == 'false') {
+			$_SESSION['order_time'] = 'Only Numbers allowed in  Order Time ';
+		}
+	}
+
+	if (isset($_POST['virtual_time']) && $_POST['virtual_time'] != "") {
+		$validation_returnval = rsaacpptelx_number_val_validation($_POST['virtual_time']);
+		if ($validation_returnval == 'false') {
+			$_SESSION['virtual_time'] = 'Only Numbers allowed in  Virtual Time ';
+		}
+	}
+
+	if (isset($_POST['delay_time']) && $_POST['delay_time'] != "") {
+		$validation_returnval = rsaacpptelx_number_val_validation($_POST['delay_time']);
+		if ($validation_returnval == 'false') {
+			$_SESSION['delay_time'] = 'Only Numbers allowed in  Initial delay ';
+		}
+	}
+
+
+	if (isset($_POST['p_hide_time']) && $_POST['p_hide_time'] != "") {
+		$validation_returnval = rsaacpptelx_number_val_validation($_POST['delay_time']);
+		if ($validation_returnval == 'false') {
+			$_SESSION['p_hide_time'] = 'Only Numbers allowed in Display Time';
+		}
+	}
+	// die();
+	if ($validation_returnval == "true") {
+		rsaacpptelx_update_popup_option($_POST);
+	}
+	//function for save popup option data
 
 
 
@@ -15,7 +96,7 @@ if (isset($_POST) && $_REQUEST['page'] === 'sat-test' && isset($_REQUEST['action
 	echo '<script>window.location.href="admin.php?page=' . sanitize_text_field($_GET['page']) . '&status=1#' . sanitize_text_field($_POST['tab_nam']) . '";</script>';
 	exit;
 }
-$return_values = rsaacpptelx_sales_option_values(); //get all values of sales popup option
+$return_values = rsaacpptelx_sales_option_values(); //get all values of Recent Sales and Add to Cart Pop Up - Trust Elixir option
 
 
 
@@ -29,10 +110,10 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 		<?php } ?>
 		<!-- <div class="cancelBTN"><a class="close" href="#"></a>
 		</div> -->
-		<div class="icon001"><img class="product_image" src="<?php echo plugin_dir_url(__FILE__) . '../assets/img/watch.jpg'; ?>" /></div>
-		<div class="popup_back text002 template_image" style="background-image: url('<?php echo plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . sanitize_text_field($return_values['popup_template']) . '.png'; ?>');">
-			<h4 class="hfcls"><?php _e($return_values['popup_one_heading']); ?></h4>
-			<h5 class="hficls"><?php _e($return_values['messagetext']); ?></h5>
+		<div class="icon001"><img class="product_image" src="<?php echo esc_url(plugin_dir_url(__FILE__) . '../assets/img/watch.jpg'); ?>" /></div>
+		<div class="popup_back text002 template_image" style="background-image: url('<?php echo esc_url(plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . $return_values['popup_template'] . '.png'); ?>');">
+			<h4 class="hfcls"><?php _e(esc_attr($return_values['popup_one_heading'])); ?></h4>
+			<h5 class="hficls"><?php _e(esc_attr($return_values['messagetext'])); ?></h5>
 		</div>
 	</div>
 
@@ -44,10 +125,10 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 		<?php } ?>
 		<!-- <div class="cancelBTN"><a class="close" href="#"></a>
 		</div> -->
-		<div class="icon001"><img class="product_image" src="<?php echo plugin_dir_url(__FILE__) . '../assets/img/watch.jpg'; ?>" /></div>
-		<div class="popup_back text002 template_image" style="background-image: url('<?php echo plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . sanitize_text_field($return_values['popup_template']) . '.png'; ?>');">
-			<h4 class="hfcls"><?php _e($return_values['popup_two_heading']); ?></h4>
-			<h5 class="hficls"><?php _e($return_values['popup_two_msg']); ?></h5>
+		<div class="icon001"><img class="product_image" src="<?php echo esc_url(plugin_dir_url(__FILE__) . '../assets/img/watch.jpg'); ?>" /></div>
+		<div class="popup_back text002 template_image" style="background-image: url('<?php echo esc_url(plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . $return_values['popup_template'] . '.png'); ?>');">
+			<h4 class="hfcls"><?php _e(esc_attr($return_values['popup_two_heading'])); ?></h4>
+			<h5 class="hficls"><?php _e(esc_attr($return_values['popup_two_msg'])); ?></h5>
 		</div>
 	</div>
 <?php } ?>
@@ -55,8 +136,8 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 
 <div class="col-md-12 cgCoverPage">
 	<?php
-	if ($_REQUEST['page'] == 'sat-test' && class_exists('woocommerce')) { ?>
-		<h3>Sales POPUP</h3>
+	if ($_REQUEST['page'] == 'trust-elixir' && class_exists('woocommerce')) { ?>
+		<h3>Recent Sales and Add to Cart Pop Up - Trust Elixir</h3>
 		<?php if (isset($_GET['status']) && $_GET['status'] === 1) {
 			echo rsaacpptelx_success_message();
 		} ?>
@@ -85,7 +166,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 										<label for="product"><?php _e('Active'); ?></label>
 									</div>
 									<div class="col-md-9 col-sm-8">
-										<input type="checkbox" name="popstats" <?php echo sanitize_text_field($return_values['checked']); ?>>
+										<input type="checkbox" name="popstats" <?php echo esc_attr($return_values['checked']); ?>>
 									</div>
 								</div>
 							</div>
@@ -115,7 +196,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 										<label for="color_code"><?php _e('Background Color'); ?></label>
 									</div>
 									<div class="col-md-9 col-sm-8">
-										<input id="color_code" class="color-picker" name="bcolor_code" type="text" value="<?php echo sanitize_text_field($return_values['salesbcolor_code']); ?> " />
+										<input id="color_code" class="color-picker" name="bcolor_code" type="text" value="<?php echo esc_attr($return_values['salesbcolor_code']); ?> " />
 									</div>
 								</div>
 							</div>
@@ -125,7 +206,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 										<label for="fcolor_code"><?php _e('Heading Font Color'); ?></label>
 									</div>
 									<div class="col-md-9 col-sm-8">
-										<input id="fcolor_code" class="headcolor color-picker" name="fcolor_code" type="text" value="<?php echo sanitize_text_field($return_values['salesfcolor_code']); ?>" />
+										<input id="fcolor_code" class="headcolor color-picker" name="fcolor_code" type="text" value="<?php echo esc_attr($return_values['salesfcolor_code']); ?>" />
 									</div>
 								</div>
 							</div>
@@ -135,7 +216,13 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 										<label for="f_size_code"><?php _e('Heading Font Size'); ?></label>
 									</div>
 									<div class="col-md-9 col-sm-8">
-										<input id="f_size_code" class="headfontsize" name="f_size" type="text" value="<?php echo sanitize_text_field($return_values['sales_size']); ?>" />
+										<input id="f_size_code" class="headfontsize" name="f_size" type="text" value="<?php echo esc_attr($return_values['sales_size']); ?>" />
+										<?php if (isset($_SESSION['f_size'])) { ?>
+											<span style="color: red;">
+												<?php echo $_SESSION['f_size'];
+												unset($_SESSION['f_size']); ?>
+											</span>
+										<?php } ?>
 									</div>
 								</div>
 							</div>
@@ -145,7 +232,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 										<label for="cf_color_code"><?php _e('Content Font Color'); ?></label>
 									</div>
 									<div class="col-md-9 col-sm-8">
-										<input id="cf_color_code" class="cfontcolor color-picker" name="cf_color" type="text" value="<?php echo sanitize_text_field($return_values['cf_color']); ?>" />
+										<input id="cf_color_code" class="cfontcolor color-picker" name="cf_color" type="text" value="<?php echo esc_attr($return_values['cf_color']); ?>" />
 									</div>
 								</div>
 							</div>
@@ -155,7 +242,13 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 										<label for="cf_size_code"><?php _e('Content Font Size'); ?></label>
 									</div>
 									<div class="col-md-9 col-sm-8">
-										<input id="cf_size_code" class="cfontsize" name="cf_size" type="text" value="<?php echo sanitize_text_field($return_values['cf_size']); ?>" />
+										<input id="cf_size_code" class="cfontsize" name="cf_size" type="text" value="<?php echo esc_attr($return_values['cf_size']); ?>" />
+										<?php if (isset($_SESSION['cf_size'])) { ?>
+											<span style="color: red;">
+												<?php echo $_SESSION['cf_size'];
+												unset($_SESSION['cf_size']); ?>
+											</span>
+										<?php } ?>
 									</div>
 								</div>
 							</div>
@@ -182,7 +275,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 					<div class="row marginTop30">
 
 						<?php
-						$backimg = cg_get_back_images();
+						$backimg = rsaacpptelx_get_back_images();
 
 						$sr = 1;
 						foreach ($backimg as $key => $value) {
@@ -190,10 +283,10 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 						?>
 							<div class="col-sm-4">
 								<div class="form-group trueSpace">
-									<img src="<?php echo plugin_dir_url(__FILE__) . '../assets/img/background/' . $value; ?>" class="vi-ui centered medium  middle aligned ">
-									<input id="popup_one_heading_<?php echo $sr; ?>" data-img="<?php echo plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . $value; ?>" data-color="<?php echo sanitize_text_field($img_name[1]); ?>" class="cfontsize" name="popup_template" type="radio" value="<?php echo sanitize_text_field($img_name[0]); ?>" <?php if ($return_values['popup_template'] == $img_name[0]) { ?> checked <?php } ?> />
+									<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . '../assets/img/background/' . $value); ?>" class="vi-ui centered medium  middle aligned ">
+									<input id="popup_one_heading_<?php echo $sr; ?>" data-img="<?php echo esc_url(plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . $value); ?>" data-color="<?php echo esc_attr($img_name[1]); ?>" class="cfontsize" name="popup_template" type="radio" value="<?php echo esc_attr($img_name[0]); ?>" <?php if ($return_values['popup_template'] == $img_name[0]) { ?> checked <?php } ?> />
 									<br />
-									<?php echo sanitize_text_field($img_name[0]); ?>
+									<?php echo esc_attr($img_name[0]); ?>
 								</div>
 							</div>
 						<?php
@@ -258,7 +351,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 									<label for="cls_color_code"><?php _e('Close Icon Color'); ?></label>
 								</div>
 								<div class="col-md-9 col-sm-8">
-									<input id="cls_color_code" onchange="get_func();" class="color-picker" name="icon_color_code" type="text" value="<?php echo sanitize_text_field($return_values['icon_color_code']); ?> " />
+									<input id="cls_color_code" onchange="get_func();" class="color-picker" name="icon_color_code" type="text" value="<?php echo esc_attr($return_values['icon_color_code']); ?> " />
 								</div>
 							</div>
 						</div>
@@ -389,7 +482,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 									<label for="popup_custom_css"><?php _e('Custom CSS'); ?> </label>
 								</div>
 								<div class="col-md-9 col-sm-8">
-									<textarea class="customtextarea" id="popup_custom_css" name="popup_custom_css"><?php echo sanitize_text_field($return_values['popup_custom_css']); ?></textarea>
+									<textarea class="customtextarea" id="popup_custom_css" name="popup_custom_css"><?php echo esc_attr($return_values['popup_custom_css']); ?></textarea>
 								</div>
 							</div>
 						</div>
@@ -405,7 +498,14 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 								<label for="cf_size_code"><?php _e('Popup 1 Heading'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="popup_one_heading" class="cfontsize" name="popup_one_heading" type="text" value="<?php echo sanitize_text_field($return_values['popup_one_heading']); ?>" />
+								<input id="popup_one_heading" class="cfontsize" name="popup_one_heading" type="text" value="<?php echo esc_attr($return_values['popup_one_heading']); ?>" />
+
+								<?php if (isset($_SESSION['popup_one_heading'])) { ?>
+									<span style="color: red;">
+										<?php echo $_SESSION['popup_one_heading'];
+										unset($_SESSION['popup_one_heading']); ?>
+									</span>
+								<?php } ?>
 							</div>
 						</div>
 					</div>
@@ -416,7 +516,14 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 								<label for="cf_size_code"><?php _e('Popup 2 Heading'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="popup_two_heading" class="cfontsize" name="popup_two_heading" type="text" value="<?php echo sanitize_text_field($return_values['popup_two_heading']); ?>" />
+								<input id="popup_two_heading" class="cfontsize" name="popup_two_heading" type="text" value="<?php echo esc_attr($return_values['popup_two_heading']); ?>" />
+
+								<?php if (isset($_SESSION['popup_two_heading'])) { ?>
+									<span style="color: red;">
+										<?php echo $_SESSION['popup_two_heading'];
+										unset($_SESSION['popup_two_heading']); ?>
+									</span>
+								<?php } ?>
 							</div>
 						</div>
 					</div>
@@ -429,7 +536,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 								<label for="c_text_code"><?php _e('Content Text'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<textarea id="c_text_code" class="ctextsize" col="8" rows="10" name="messagetext" value="<?php echo sanitize_text_field($return_values['messagetext']); ?>" /><?php echo sanitize_text_field($return_values['messagetext']); ?></textarea>
+								<textarea id="c_text_code" class="ctextsize" col="8" rows="10" name="messagetext" value="<?php echo esc_attr($return_values['messagetext']); ?>" /><?php echo esc_attr($return_values['messagetext']); ?></textarea>
 							</div>
 						</div>
 					</div>
@@ -454,7 +561,8 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 								<label for="virtual_name"><?php _e('Virtual City Names'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<textarea id="virtual_city_name" class="ctextsize" col="8" rows="10" name="virtual_city_name" /><?php echo sanitize_text_field($return_values['virtual_city_name']); ?></textarea>
+								<textarea id="virtual_city_name" class="ctextsize" col="8" rows="10" name="virtual_city_name" /><?php echo esc_attr($return_values['virtual_city_name']); ?></textarea>
+
 							</div>
 						</div>
 					</div>
@@ -465,7 +573,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 								<label for="virtual_state_name"><?php _e('Virtual State'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<textarea id="virtual_state_name" class="ctextsize" col="8" rows="10" name="virtual_state_name" /><?php echo sanitize_text_field($return_values['virtual_state_name']); ?></textarea>
+								<textarea id="virtual_state_name" class="ctextsize" col="8" rows="10" name="virtual_state_name" /><?php echo esc_attr($return_values['virtual_state_name']); ?></textarea>
 							</div>
 						</div>
 					</div>
@@ -477,7 +585,14 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 								<label for="virtual_country"><?php _e('Virtual Country'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="virtual_country" class="cfontsize" name="virtual_country" type="text" value="<?php echo sanitize_text_field($return_values['virtual_country']); ?>" />
+								<input id="virtual_country" class="cfontsize" name="virtual_country" type="text" value="<?php echo esc_attr($return_values['virtual_country']); ?>" />
+
+								<?php if (isset($_SESSION['virtual_country'])) { ?>
+									<span style="color: red;">
+										<?php echo $_SESSION['virtual_country'];
+										unset($_SESSION['virtual_country']); ?>
+									</span>
+								<?php } ?>
 							</div>
 						</div>
 					</div>
@@ -488,7 +603,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 								<label for="virtual_name"><?php _e('Virtual Names'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<textarea id="virtual_name" class="ctextsize" col="8" rows="10" name="virtual_name" value="<?php echo sanitize_text_field($return_values['messagetext']); ?>" /><?php echo sanitize_text_field($return_values['virtual_name']); ?></textarea>
+								<textarea id="virtual_name" class="ctextsize" col="8" rows="10" name="virtual_name" value="<?php echo esc_attr($return_values['messagetext']); ?>" /><?php echo esc_attr($return_values['virtual_name']); ?></textarea>
 							</div>
 						</div>
 					</div>
@@ -500,7 +615,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 								<label for="c_text_code2"><?php _e('Popup Two Content Text'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<textarea id="c_text_code2" class="ctextsize" col="8" rows="10" name="popup_two_msg" value="<?php echo sanitize_text_field($return_values['popup_two_msg']); ?>"><?php echo sanitize_text_field($return_values['popup_two_msg']); ?></textarea>
+								<textarea id="c_text_code2" class="ctextsize" col="8" rows="10" name="popup_two_msg" value="<?php echo esc_attr($return_values['popup_two_msg']); ?>"><?php echo esc_attr($return_values['popup_two_msg']); ?></textarea>
 
 								<ul class="description" style="list-style: none">
 									<li>
@@ -550,7 +665,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 								<label for="custom_msg_popup"><?php _e('Custom'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="custom_msg_popup" class="cfontsize" name="custom_msg_popup" type="text" value="<?php echo sanitize_text_field($return_values['custom_msg_popup']); ?>" />
+								<input id="custom_msg_popup" class="cfontsize" name="custom_msg_popup" type="text" value="<?php echo esc_attr($return_values['custom_msg_popup']); ?>" />
 							</div>
 						</div>
 					</div>
@@ -563,7 +678,14 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 								<label for="min_num_people"><?php _e('Min Number'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="min_num_people" class="cfontsize" name="min_num_people" type="number" min="1" value="<?php echo sanitize_text_field($return_values['min_num_people']); ?>" />
+								<input id="min_num_people" class="cfontsize" name="min_num_people" type="number" min="1" value="<?php echo esc_attr($return_values['min_num_people']); ?>" />
+								<?php if (isset($_SESSION['min_num_people'])) { ?>
+									<span style="color: red;">
+										<?php echo $_SESSION['min_num_people'];
+										unset($_SESSION['min_num_people']); ?>
+									</span>
+								<?php } ?>
+
 							</div>
 						</div>
 					</div>
@@ -574,7 +696,14 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 								<label for="max_num_people"><?php _e('Max Number'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="max_num_people" class="cfontsize" name="max_num_people" type="number" min="1" value="<?php echo sanitize_text_field($return_values['max_num_people']); ?>" />
+								<input id="max_num_people" class="cfontsize" name="max_num_people" type="number" min="1" value="<?php echo esc_attr($return_values['max_num_people']); ?>" />
+
+								<?php if (isset($_SESSION['max_num_people'])) { ?>
+									<span style="color: red;">
+										<?php echo $_SESSION['max_num_people'];
+										unset($_SESSION['max_num_people']); ?>
+									</span>
+								<?php } ?>
 							</div>
 						</div>
 					</div>
@@ -597,11 +726,6 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 							</div>
 						</div>
 					</div>
-					<!-- <div class="form-group">
-					<label for="cf_size_code">Out-of-stock products</label>
-					On<input type="radio" name="out_stock_products" value="on" <?php if ($return_values['out_stock_products'] == 'on') { ?> checked <?php } ?> />
-					Off<input type="radio" name="out_stock_products" value="off" <?php if ($return_values['out_stock_products'] == 'off') { ?> checked <?php } ?> />
-				</div> -->
 
 					<div id="sel_product" style="display:none;" class="form-group">
 						<div class="row">
@@ -625,7 +749,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 											$selected = "";
 										}
 									?>
-										<option <?php echo sanitize_text_field($selected); ?> value="<?php echo sanitize_text_field(get_the_id()); ?>"><?php echo sanitize_text_field(get_the_title()); ?>
+										<option <?php echo esc_attr($selected); ?> value="<?php echo esc_attr(get_the_id()); ?>"><?php echo esc_attr(get_the_title()); ?>
 										</option>
 									<?php endwhile;
 
@@ -659,7 +783,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 												$selected = "";
 											}
 										?>
-											<option <?php echo sanitize_text_field($selected); ?> value="<?php echo sanitize_text_field(get_the_id()); ?>"><?php echo sanitize_text_field(get_the_title()); ?>
+											<option <?php echo esc_attr($selected); ?> value="<?php echo esc_attr(get_the_id()); ?>"><?php echo esc_attr(get_the_title()); ?>
 											</option>
 										<?php endwhile;
 
@@ -678,7 +802,14 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 								<div class="col-md-9 col-sm-8">
 									<div class="row">
 										<div class="col-md-9 col-sm-8">
-											<input id="order_time" class="cfontsize" name="order_time" type="number" min="1" value="<?php echo sanitize_text_field($return_values['order_time']); ?>" />
+											<input id="order_time" class="cfontsize" name="order_time" type="number" min="1" value="<?php echo esc_attr($return_values['order_time']); ?>" />
+
+											<?php if (isset($_SESSION['order_time'])) { ?>
+												<span style="color: red;">
+													<?php echo $_SESSION['order_time'];
+													unset($_SESSION['order_time']); ?>
+												</span>
+											<?php } ?>
 										</div>
 										<div class="col-md-3 col-sm-4">
 											<select name="product_order_time_exact">
@@ -698,7 +829,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 									<label for="cf_size_code"><?php _e('Orders Status'); ?></label>
 								</div>
 								<div class="col-md-9 col-sm-8">
-									<?php $all_order_sts = cg_get_orders_status(); ?>
+									<?php $all_order_sts = rsaacpptelx_get_orders_status(); ?>
 									<select name="get_orders_sts[]" multiple id="orders_sts">
 										<option <?php if (empty($return_values['sts_condition_array'])) { ?> selected <?php } ?> value="all"><?php _e('All'); ?></option>
 										<?php
@@ -712,7 +843,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 											}
 
 										?>
-											<option <?php echo sanitize_text_field($sts_selected); ?> value="<?php echo sanitize_text_field($key); ?>"><?php echo sanitize_text_field($value); ?></option>
+											<option <?php echo esc_attr($sts_selected); ?> value="<?php echo esc_attr($key); ?>"><?php echo esc_attr($value); ?></option>
 										<?php } ?>
 									</select>
 								</div>
@@ -726,7 +857,13 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 								<label for="virtual_time"><?php _e('Virtual Time'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="virtual_time" class="cfontsize" name="virtual_time" type="number" min="1" value="<?php echo sanitize_text_field($return_values['virtual_time']); ?>" />
+								<input id="virtual_time" class="cfontsize" name="virtual_time" type="number" min="1" value="<?php echo esc_attr($return_values['virtual_time']); ?>" />
+								<?php if (isset($_SESSION['virtual_time'])) { ?>
+									<span style="color: red;">
+										<?php echo $_SESSION['virtual_time'];
+										unset($_SESSION['virtual_time']); ?>
+									</span>
+								<?php } ?>
 								<p class="description"><?php _e('Days'); ?> </p>
 							</div>
 						</div>
@@ -776,7 +913,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 											$selected = "";
 										}
 									?>
-										<option <?php echo sanitize_text_field($selected); ?> value="<?php echo sanitize_text_field($dis_pages->ID); ?>"><?php echo sanitize_text_field($dis_pages->post_name); ?></option>
+										<option <?php echo esc_attr($selected); ?> value="<?php echo esc_attr($dis_pages->ID); ?>"><?php echo esc_attr($dis_pages->post_name); ?></option>
 									<?php
 									}
 									?>
@@ -794,7 +931,13 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 								<label for="delay_time"><?php _e('Initial delay'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="delay_time" class="cfontsize" name="delay_time" type="number" min="1" value="<?php echo sanitize_text_field($return_values['delay_time']); ?>" />
+								<input id="delay_time" class="cfontsize" name="delay_time" type="number" min="1" value="<?php echo esc_attr($return_values['delay_time']); ?>" />
+								<?php if (isset($_SESSION['delay_time'])) { ?>
+									<span style="color: red;">
+										<?php echo $_SESSION['delay_time'];
+										unset($_SESSION['delay_time']); ?>
+									</span>
+								<?php } ?>
 								<p class="description"><?php _e('seconds'); ?> </p>
 							</div>
 						</div>
@@ -806,7 +949,13 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 								<label for="delay_time"><?php _e('Display Time'); ?></label>
 							</div>
 							<div class="col-md-9 col-sm-8">
-								<input id="p_hide_time" class="cfontsize" name="p_hide_time" type="number" min="1" value="<?php echo sanitize_text_field($return_values['p_hide_time']); ?>" />
+								<input id="p_hide_time" class="cfontsize" name="p_hide_time" type="number" min="1" value="<?php echo esc_attr($return_values['p_hide_time']); ?>" />
+								<?php if (isset($_SESSION['p_hide_time'])) { ?>
+									<span style="color: red;">
+										<?php echo $_SESSION['p_hide_time'];
+										unset($_SESSION['p_hide_time']); ?>
+									</span>
+								<?php } ?>
 								<p class="description"><?php _e('seconds'); ?></p>
 							</div>
 						</div>
@@ -869,8 +1018,8 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 
 			//var start = moment().startOf('month');
 			//var start = moment('2021/12/15')
-			var start = moment('<?php echo sanitize_text_field($start_date); ?>');
-			var end = moment('<?php echo sanitize_text_field($end_date); ?>');
+			var start = moment('<?php echo esc_attr($start_date); ?>');
+			var end = moment('<?php echo esc_attr($end_date); ?>');
 			var type = '<?php echo $type; ?>';
 			//var end = moment().endOf('month');
 
@@ -920,8 +1069,8 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of sales po
 
 	var admin_url = '<?php echo admin_url(); ?>';
 
-	show_product_type('<?php echo $return_values['get_product_type']; ?>');
-	show_hide_filter('<?php echo $filterby; ?>');
+	show_product_type('<?php echo esc_attr($return_values['get_product_type']); ?>');
+	show_hide_filter('<?php echo esc_attr($filterby); ?>');
 
 	function show_product_type(typeval) {
 		if (typeval == 'get_products') {

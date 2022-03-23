@@ -221,7 +221,7 @@
     
             }
     
-            window.location.href = admin_url + "/wp-admin/admin.php?page=sat-test&status=1&filterby=" + predef_filter + fromdatefilter + "#report";
+            window.location.href = admin_url + "/wp-admin/admin.php?page=trust-elixir&status=1&filterby=" + predef_filter + fromdatefilter + "#report";
     
         });
         $('.datepick').datetimepicker({

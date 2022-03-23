@@ -1,14 +1,15 @@
 === Recent Sales and Add to Cart Pop Up - Trust Elixir ===
-Contributors: Designomate
+Contributors: cgcolors
 Tags: woocommerce notification, latest products notification,recent buy notification
 Requires at least: 5.7
 Tested up to: 5.9
 Stable tag: 1.0.0
+Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 *****Description********
-Notification popup for woocommerce product that will show how your products is trending.Plugin will display recent bought products with time ago and location where bought most.
+Recent Sales and Add to Cart Pop Up - Trust Elixir for woocommerce product that will show how your products is trending.Plugin will display recent bought products with time ago and location where bought most.
 In popup will display user location from where user buy the product and how much time before.
 In this plugin will show how many people viewing some trending produts.You can also
 show the virtual users location and products for increase your sales.
@@ -64,10 +65,14 @@ Q2. This plugin will work without woocommerce ?
 Ans: No, this plugin will not work without woocommerce plugin because it's features based on woocommerce.
 
 == Installation ==
+1.	Download Recent Sales and Add to Cart Pop Up - Trust Elixir for WooCommerce and have your .zip file
+2.	At the WordPress admin panel, go to the Plugins section, and click ‘Add New’ to upload and install the plugin you just downloaded from WooCommerce.
+3.	Upload the .zip file to proceed with the installation.
+4.	Wait until the plugin installs. After successful installation, activate the plugin, and move on to plugin page.
 
-1. Unzip the download package
-1. Upload `sat-test` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
+== Screenshots ==
+
+1. screenshot-1.png
 
 /**1.0.0 - 07.10.2021**/
 - The first released

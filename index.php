@@ -22,7 +22,7 @@ function rsaacpptelx_activation(){
 		add_option( 'Activated_SatTest', true );
 	}
 }
-add_action('activate_sat-test/index.php', 'rsaacpptelx_activation');
+add_action('activate_trust-elixir/index.php', 'rsaacpptelx_activation');
 function rsaacpptelx_css(){
     wp_register_style( 'sat-style', plugins_url('/assets/css/bootstrap.min.css', __FILE__));
     wp_enqueue_style('sat-style');
