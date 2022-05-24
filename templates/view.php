@@ -386,7 +386,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 									<div class="col-md-3 col-sm-4">
 
-										<label for="product"><?php _e('Active'); ?></label>
+										<label for="product"><?php _e(esc_attr('Active')); ?></label>
 
 									</div>
 
@@ -408,19 +408,19 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 									<div class="col-md-3 col-sm-4">
 
-										<label for="virtual_name"><?php _e('Show Popup Type'); ?></label>
+										<label for="virtual_name"><?php _e(esc_attr('Show Popup Type')); ?></label>
 
 									</div>
 
 									<div class="col-md-9 col-sm-8">
 
-										<?php _e('Popup One'); ?><input type="radio" name="sales_popup_type" value="recent_popup" <?php if ($return_values['sales_popup_type_val'] == 'recent_popup') { ?> checked <?php } ?> />
+										<?php _e(esc_attr('Popup One')); ?><input type="radio" name="sales_popup_type" value="recent_popup" <?php if ($return_values['sales_popup_type_val'] == 'recent_popup') { ?> checked <?php } ?> />
 
-										<?php _e('Popup Two'); ?><input type="radio" name="sales_popup_type" value="random_popup" <?php if ($return_values['sales_popup_type_val'] == 'random_popup') { ?> checked <?php } ?> />
+										<?php _e(esc_attr('Popup Two')); ?><input type="radio" name="sales_popup_type" value="random_popup" <?php if ($return_values['sales_popup_type_val'] == 'random_popup') { ?> checked <?php } ?> />
 
 
 
-										<?php _e('Both Random'); ?><input type="radio" name="sales_popup_type" value="both_rand" <?php if ($return_values['sales_popup_type_val'] == 'both_rand') { ?> checked <?php } ?> />
+										<?php _e(esc_attr('Both Random')); ?><input type="radio" name="sales_popup_type" value="both_rand" <?php if ($return_values['sales_popup_type_val'] == 'both_rand') { ?> checked <?php } ?> />
 
 									</div>
 
@@ -446,7 +446,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 									<div class="col-md-3 col-sm-4">
 
-										<label for="color_code"><?php _e('Background Color'); ?></label>
+										<label for="color_code"><?php _e(esc_attr('Background Color')); ?></label>
 
 									</div>
 
@@ -466,7 +466,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 									<div class="col-md-3 col-sm-4">
 
-										<label for="fcolor_code"><?php _e('Heading Font Color'); ?></label>
+										<label for="fcolor_code"><?php _e(esc_attr('Heading Font Color')); ?></label>
 
 									</div>
 
@@ -486,7 +486,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 									<div class="col-md-3 col-sm-4">
 
-										<label for="f_size_code"><?php _e('Heading Font Size'); ?></label>
+										<label for="f_size_code"><?php _e(esc_attr('Heading Font Size')); ?></label>
 
 									</div>
 
@@ -498,7 +498,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 											<span style="color: red;">
 
-												<?php echo $_SESSION['f_size'];
+												<?php echo esc_attr($_SESSION['f_size']);
 
 												unset($_SESSION['f_size']); ?>
 
@@ -518,7 +518,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 									<div class="col-md-3 col-sm-4">
 
-										<label for="cf_color_code"><?php _e('Content Font Color'); ?></label>
+										<label for="cf_color_code"><?php _e(esc_attr('Content Font Color')); ?></label>
 
 									</div>
 
@@ -538,7 +538,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 									<div class="col-md-3 col-sm-4">
 
-										<label for="cf_size_code"><?php _e('Content Font Size'); ?></label>
+										<label for="cf_size_code"><?php _e(esc_attr('Content Font Size')); ?></label>
 
 									</div>
 
@@ -550,7 +550,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 											<span style="color: red;">
 
-												<?php echo $_SESSION['cf_size'];
+												<?php echo esc_attr($_SESSION['cf_size']);
 
 												unset($_SESSION['cf_size']); ?>
 
@@ -576,7 +576,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 									<div class="col-md-3 col-sm-4">
 
-										<label for="poposition"><?php _e('Position'); ?></label>
+										<label for="poposition"><?php _e(esc_attr('Position')); ?></label>
 
 									</div>
 
@@ -584,13 +584,13 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 										<select id="poposition" name="poposition">
 
-											<option <?php if ($return_values['sales_pos'] == 'tl') echo "selected"; ?> value="tl"><?php _e('Top Left'); ?></option>
+											<option <?php if ($return_values['sales_pos'] == 'tl') echo esc_attr("selected"); ?> value="tl"><?php _e('Top Left'); ?></option>
 
-											<option <?php if ($return_values['sales_pos'] == 'bl') echo "selected"; ?> value="bl"><?php _e('Bottom Left'); ?></option>
+											<option <?php if ($return_values['sales_pos'] == 'bl') echo esc_attr("selected"); ?> value="bl"><?php _e('Bottom Left'); ?></option>
 
-											<option <?php if ($return_values['sales_pos'] == 'tr') echo "selected"; ?> value="tr"><?php _e('Top Right'); ?></option>
+											<option <?php if ($return_values['sales_pos'] == 'tr') echo esc_attr("selected"); ?> value="tr"><?php _e('Top Right'); ?></option>
 
-											<option <?php if ($return_values['sales_pos'] == 'br') echo "selected"; ?> value="br"><?php _e('Bottom Right'); ?></option>
+											<option <?php if ($return_values['sales_pos'] == 'br') echo esc_attr("selected"); ?> value="br"><?php _e('Bottom Right'); ?></option>
 
 										</select>
 
@@ -628,7 +628,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 									<img src="<?php echo esc_url(plugin_dir_url(__FILE__) . '../assets/img/background/' . $value); ?>" class="vi-ui centered medium  middle aligned ">
 
-									<input id="popup_one_heading_<?php echo $sr; ?>" data-img="<?php echo esc_url(plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . $value); ?>" data-color="<?php echo esc_attr($img_name[1]); ?>" class="cfontsize" name="popup_template" type="radio" value="<?php echo esc_attr($img_name[0]); ?>" <?php if ($return_values['popup_template'] == $img_name[0]) { ?> checked <?php } ?> />
+									<input id="popup_one_heading_<?php echo esc_attr($sr); ?>" data-img="<?php echo esc_url(plugin_dir_url(__FILE__) . '../assets/img/background/bg_' . $value); ?>" data-color="<?php echo esc_attr($img_name[1]); ?>" class="cfontsize" name="popup_template" type="radio" value="<?php echo esc_attr($img_name[0]); ?>" <?php if ($return_values['popup_template'] == $img_name[0]) { ?> checked <?php } ?> />
 
 									<br />
 
@@ -657,7 +657,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 								<div class="col-md-3 col-sm-4">
 
-									<label for="cf_size_code"><?php _e('Rounded corner style'); ?></label>
+									<label for="cf_size_code"><?php _e(esc_attr('Rounded corner style')); ?></label>
 
 								</div>
 
@@ -681,7 +681,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 								<div class="col-md-3 col-sm-4">
 
-									<label for="cf_size_code"><?php _e('Image redirect'); ?></label>
+									<label for="cf_size_code"><?php _e(esc_attr('Image redirect')); ?></label>
 
 								</div>
 
@@ -707,7 +707,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 								<div class="col-md-3 col-sm-4">
 
-									<label for="cf_size_code"><?php _e('Link target'); ?></label>
+									<label for="cf_size_code"><?php _e(esc_attr('Link target')); ?></label>
 
 								</div>
 
@@ -735,7 +735,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 								<div class="col-md-9 col-sm-8">
 
-									<label for="cf_size_code"><?php _e('Show Close Icon'); ?></label>
+									<label for="cf_size_code"><?php _e(esc_attr('Show Close Icon')); ?></label>
 
 									<?php _e('On'); ?><input type="radio" name="popup_close_icon" value="on" <?php if ($return_values['popup_close_icon'] == 'on') { ?> checked <?php } ?> />
 
@@ -755,7 +755,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 								<div class="col-md-3 col-sm-4">
 
-									<label for="cls_color_code"><?php _e('Close Icon Color'); ?></label>
+									<label for="cls_color_code"><?php _e(esc_attr('Close Icon Color')); ?></label>
 
 								</div>
 
@@ -775,7 +775,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 								<div class="col-md-3 col-sm-4">
 
-									<label for="cf_size_code"><?php _e('Message display effect'); ?></label>
+									<label for="cf_size_code"><?php _e(esc_attr('Message display effect')); ?></label>
 
 								</div>
 
@@ -895,7 +895,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 								<div class="col-md-3 col-sm-4">
 
-									<label for="cf_size_code"><?php _e('Message hidden effect'); ?></label>
+									<label for="cf_size_code"><?php _e(esc_attr('Message hidden effect')); ?></label>
 
 								</div>
 
@@ -1017,7 +1017,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 								<div class="col-md-3 col-sm-4">
 
-									<label for="popup_custom_css"><?php _e('Custom CSS'); ?> </label>
+									<label for="popup_custom_css"><?php _e(esc_attr('Custom CSS')); ?> </label>
 
 								</div>
 
@@ -1049,7 +1049,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 							<div class="col-md-3 col-sm-4">
 
-								<label for="cf_size_code"><?php _e('Popup 1 Heading'); ?></label>
+								<label for="cf_size_code"><?php _e(esc_attr('Popup 1 Heading')); ?></label>
 
 							</div>
 
@@ -1063,7 +1063,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 									<span style="color: red;">
 
-										<?php echo $_SESSION['popup_one_heading'];
+										<?php echo esc_attr($_SESSION['popup_one_heading']);
 
 										unset($_SESSION['popup_one_heading']); ?>
 
@@ -1085,7 +1085,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 							<div class="col-md-3 col-sm-4">
 
-								<label for="cf_size_code"><?php _e('Popup 2 Heading'); ?></label>
+								<label for="cf_size_code"><?php _e(esc_attr('Popup 2 Heading')); ?></label>
 
 							</div>
 
@@ -1099,7 +1099,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 									<span style="color: red;">
 
-										<?php echo $_SESSION['popup_two_heading'];
+										<?php echo esc_attr($_SESSION['popup_two_heading']);
 
 										unset($_SESSION['popup_two_heading']); ?>
 
@@ -1125,7 +1125,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 							<div class="col-md-3 col-sm-4">
 
-								<label for="c_text_code"><?php _e('Content Text'); ?></label>
+								<label for="c_text_code"><?php _e(esc_attr('Content Text')); ?></label>
 
 							</div>
 
@@ -1147,7 +1147,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 							<div class="col-md-3 col-sm-4">
 
-								<label for="virtual_name"><?php _e('Address'); ?></label>
+								<label for="virtual_name"><?php _e(esc_attr('Address')); ?></label>
 
 							</div>
 
@@ -1199,7 +1199,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 							<div class="col-md-3 col-sm-4">
 
-								<label for="virtual_state_name"><?php _e('Virtual State'); ?></label>
+								<label for="virtual_state_name"><?php _e(esc_attr('Virtual State')); ?></label>
 
 							</div>
 
@@ -1223,7 +1223,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 							<div class="col-md-3 col-sm-4">
 
-								<label for="virtual_country"><?php _e('Virtual Country'); ?></label>
+								<label for="virtual_country"><?php _e(esc_attr('Virtual Country')); ?></label>
 
 							</div>
 
@@ -1237,7 +1237,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 									<span style="color: red;">
 
-										<?php echo $_SESSION['virtual_country'];
+										<?php echo esc_attr($_SESSION['virtual_country']);
 
 										unset($_SESSION['virtual_country']); ?>
 
@@ -1259,7 +1259,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 							<div class="col-md-3 col-sm-4">
 
-								<label for="virtual_name"><?php _e('Virtual Names'); ?></label>
+								<label for="virtual_name"><?php _e(esc_attr('Virtual Names')); ?></label>
 
 							</div>
 
@@ -1283,7 +1283,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 							<div class="col-md-3 col-sm-4">
 
-								<label for="c_text_code2"><?php _e('Popup Two Content Text'); ?></label>
+								<label for="c_text_code2"><?php _e(esc_attr('Popup Two Content Text')); ?></label>
 
 							</div>
 
@@ -1383,7 +1383,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 							<div class="col-md-3 col-sm-4">
 
-								<label for="custom_msg_popup"><?php _e('Custom'); ?></label>
+								<label for="custom_msg_popup"><?php _e(esc_attr('Custom')); ?></label>
 
 							</div>
 
@@ -1409,7 +1409,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 							<div class="col-md-3 col-sm-4">
 
-								<label for="min_num_people"><?php _e('Min Number'); ?></label>
+								<label for="min_num_people"><?php _e(esc_attr('Min Number')); ?></label>
 
 							</div>
 
@@ -1421,7 +1421,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 									<span style="color: red;">
 
-										<?php echo $_SESSION['min_num_people'];
+										<?php echo esc_attr($_SESSION['min_num_people']);
 
 										unset($_SESSION['min_num_people']); ?>
 
@@ -1445,7 +1445,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 							<div class="col-md-3 col-sm-4">
 
-								<label for="max_num_people"><?php _e('Max Number'); ?></label>
+								<label for="max_num_people"><?php _e(esc_attr('Max Number')); ?></label>
 
 							</div>
 
@@ -1459,7 +1459,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 									<span style="color: red;">
 
-										<?php echo $_SESSION['max_num_people'];
+										<?php echo esc_attr($_SESSION['max_num_people']);
 
 										unset($_SESSION['max_num_people']); ?>
 
@@ -1489,7 +1489,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 							<div class="col-md-3 col-sm-4">
 
-								<label for="cf_size_code"><?php _e('Show products'); ?></label>
+								<label for="cf_size_code"><?php _e(esc_attr('Show products')); ?></label>
 
 							</div>
 
@@ -1519,7 +1519,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 							<div class="col-md-3 col-sm-4">
 
-								<label for="cf_size_code"><?php _e('Select product'); ?></label>
+								<label for="cf_size_code"><?php _e(esc_attr('Select product')); ?></label>
 
 							</div>
 
@@ -1583,7 +1583,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 								<div class="col-md-3 col-sm-4">
 
-									<label for="cf_size_code"><?php _e('Exclude product'); ?></label>
+									<label for="cf_size_code"><?php _e(esc_attr('Exclude product')); ?></label>
 
 								</div>
 
@@ -1649,7 +1649,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 								<div class="col-md-3 col-sm-4">
 
-									<label for="order_time"><?php _e('Order Time'); ?></label>
+									<label for="order_time"><?php _e(esc_attr('Order Time')); ?></label>
 
 								</div>
 
@@ -1667,7 +1667,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 												<span style="color: red;">
 
-													<?php echo $_SESSION['order_time'];
+													<?php echo esc_attr($_SESSION['order_time']);
 
 													unset($_SESSION['order_time']); ?>
 
@@ -1707,7 +1707,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 								<div class="col-md-3 col-sm-4 tt">
 
-									<label for="cf_size_code"><?php _e('Orders Status'); ?></label>
+									<label for="cf_size_code"><?php _e(esc_attr('Orders Status')); ?></label>
 
 								</div>
 
@@ -1761,7 +1761,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 							<div class="col-md-3 col-sm-4">
 
-								<label for="virtual_time"><?php _e('Virtual Time'); ?></label>
+								<label for="virtual_time"><?php _e(esc_attr('Virtual Time')); ?></label>
 
 							</div>
 
@@ -1773,7 +1773,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 									<span style="color: red;">
 
-										<?php echo $_SESSION['virtual_time'];
+										<?php echo esc_attr($_SESSION['virtual_time']);
 
 										unset($_SESSION['virtual_time']); ?>
 
@@ -1809,7 +1809,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 							<div class="col-md-3 col-sm-4">
 
-								<label for="cf_size_code"><?php _e('Conditional Tags'); ?></label>
+								<label for="cf_size_code"><?php _e(esc_attr('Conditional Tags')); ?></label>
 
 							</div>
 
@@ -1907,7 +1907,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 							<div class="col-md-3 col-sm-4">
 
-								<label for="delay_time"><?php _e('Initial delay'); ?></label>
+								<label for="delay_time"><?php _e(esc_attr('Initial delay')); ?></label>
 
 							</div>
 
@@ -1919,7 +1919,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 									<span style="color: red;">
 
-										<?php echo $_SESSION['delay_time'];
+										<?php echo esc_attr($_SESSION['delay_time']);
 
 										unset($_SESSION['delay_time']); ?>
 
@@ -1943,7 +1943,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 							<div class="col-md-3 col-sm-4">
 
-								<label for="delay_time"><?php _e('Display Time'); ?></label>
+								<label for="delay_time"><?php _e(esc_attr('Display Time')); ?></label>
 
 							</div>
 
@@ -1955,7 +1955,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 									<span style="color: red;">
 
-										<?php echo $_SESSION['p_hide_time'];
+										<?php echo esc_attr($_SESSION['p_hide_time']);
 
 										unset($_SESSION['p_hide_time']); ?>
 
@@ -2087,7 +2087,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 			var end = moment('<?php echo esc_attr($end_date); ?>');
 
-			var type = '<?php echo $type; ?>';
+			var type = '<?php echo esc_attr($type); ?>';
 
 			//var end = moment().endOf('month');
 
@@ -2181,7 +2181,7 @@ $return_values = rsaacpptelx_sales_option_values(); //get all values of Recent S
 
 
 
-	var admin_url = '<?php echo admin_url(); ?>';
+	var admin_url = '<?php echo esc_url(admin_url()); ?>';
 
 
 

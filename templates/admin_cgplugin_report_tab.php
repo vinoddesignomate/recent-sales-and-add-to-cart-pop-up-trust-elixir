@@ -157,7 +157,7 @@ if (!empty($get_popup_product_count)) {
 											if (isset($countarray[$displpopu->popup_name])) {
 												echo esc_attr($countarray[$displpopu->popup_name]);
 											} else {
-												echo '0';
+												echo esc_attr('0');
 											} ?> </p>
 				</div>
 			<?php } ?>

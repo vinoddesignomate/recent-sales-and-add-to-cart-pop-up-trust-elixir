@@ -98,7 +98,7 @@ if (!function_exists('rsaacpptelx_success_message')) {
 
             <div class="notice notice-success is-dismissible">
 
-                <p><?php _e('Updated Successfully!'); ?></p>
+                <p><?php _e(esc_attr('Updated Successfully!')); ?></p>
 
             </div>
 
